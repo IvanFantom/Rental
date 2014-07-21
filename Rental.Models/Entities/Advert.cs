@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Rental.Domain.Entities.Base;
+﻿using Rental.Models.Entities.Base;
+using Rental.Models.Enums;
 
-namespace Rental.Domain.Entities
+namespace Rental.Models.Entities
 {
     public class Advert : Entity<long>
     {

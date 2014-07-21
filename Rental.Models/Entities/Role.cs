@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Rental.Domain.Entities.Base;
+﻿using System.Collections.Generic;
+using Rental.Models.Entities.Base;
 
-namespace Rental.Domain.Entities
+namespace Rental.Models.Entities
 {
     public class Role : Entity<long>
     {

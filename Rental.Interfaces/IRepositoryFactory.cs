@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Rental.Domain.Entities;
-using Rental.Domain.Repositories;
+﻿using Rental.Models.Entities;
 
-namespace Rental.Domain
+namespace Rental.Interfaces
 {
     public interface IRepositoryFactory
     {

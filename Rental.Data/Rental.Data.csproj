@@ -53,9 +53,13 @@
     <Compile Include="Mappings\AdvertMap.cs" />
     <Compile Include="Mappings\RoleMap.cs" />
     <Compile Include="Mappings\UserMap.cs" />
+    <Compile Include="Migrations\201407211720490_InitializeDb.cs" />
+    <Compile Include="Migrations\201407211720490_InitializeDb.Designer.cs">
+      <DependentUpon>201407211720490_InitializeDb.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\Repository.cs" />
+    <Compile Include="RentalDbInitializer.cs" />
     <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -63,12 +67,24 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Rental.Domain\Rental.Domain.csproj">
-      <Project>{a52743da-fd94-49c5-a61a-355805eeb12e}</Project>
-      <Name>Rental.Domain</Name>
+    <EmbeddedResource Include="Migrations\201407211720490_InitializeDb.resx">
+      <DependentUpon>201407211720490_InitializeDb.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Rental.Interfaces\Rental.Interfaces.csproj">
+      <Project>{d34a453d-721a-4f31-9435-88c455f73517}</Project>
+      <Name>Rental.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Rental.Models\Rental.Models.csproj">
+      <Project>{136ebec6-6ad5-4e59-aa79-33538eacf45e}</Project>
+      <Name>Rental.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Rental.Repositories\Rental.Repositories.csproj">
+      <Project>{2c6055b3-5fb9-4251-9f75-28c3c6bc5a10}</Project>
+      <Name>Rental.Repositories</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

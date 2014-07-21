@@ -5,7 +5,7 @@ using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Rental.Domain.Entities;
+using Rental.Models.Entities;
 
 namespace Rental.Data.Mappings
 {

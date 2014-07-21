@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using Rental.Domain.Entities.Base;
+using Rental.Models.Entities.Base;
 
-namespace Rental.Domain.Repositories
+namespace Rental.Interfaces
 {
     public interface IRepository<TEntity, in TKey> where TEntity : Entity
     {

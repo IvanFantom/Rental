@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Rental.Data.Repositories;
-using Rental.Domain;
-using Rental.Domain.Entities;
-using Rental.Domain.Repositories;
+using Rental.Interfaces;
+using Rental.Models.Entities;
+using Rental.Repositories;
 
 namespace Rental.Data
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private DataContext _context;
+        private readonly DataContext _context;
         private IRepository<User, long> _userRepository;
         private IRepository<Role, long> _roleRepository;
         private IRepository<Advert, long> _advertRepository;
@@ -68,7 +69,22 @@ namespace Rental.Data
         }
         public void Rollback()
         {
+            List<DbEntityEntry> changedEntries = _context.ChangeTracker.Entries().Where(x => x.State != EntityState.Unchanged).ToList();
+            foreach (DbEntityEntry entry in changedEntries.Where(x => x.State == EntityState.Modified))
+            {
+                entry.CurrentValues.SetValues(entry.OriginalValues);
+                entry.State = EntityState.Unchanged;
+            }
 
+            foreach (DbEntityEntry entry in changedEntries.Where(x => x.State == EntityState.Added))
+            {
+                entry.State = EntityState.Detached;
+            }
+
+            foreach (DbEntityEntry entry in changedEntries.Where(x => x.State == EntityState.Deleted))
+            {
+                entry.State = EntityState.Unchanged;
+            }
         }
 
         #endregion

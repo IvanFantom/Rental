@@ -1,21 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using Rental.Domain.Entities.Base;
-using Rental.Domain.Repositories;
+using Rental.Interfaces;
+using Rental.Models.Entities.Base;
 
-namespace Rental.Data.Repositories
+namespace Rental.Repositories
 {
-    internal class Repository<TEntity, TKey> : IRepository<TEntity, TKey> where TEntity : Entity
+    public class Repository<TEntity, TKey> : IRepository<TEntity, TKey> where TEntity : Entity
     {
-        internal DataContext context;
-        internal DbSet<TEntity> dbSet;
+        private DbContext context;
+        private DbSet<TEntity> dbSet;
 
-        internal Repository(DataContext context)
+        public Repository(DbContext context)
         {
             this.context = context;
             this.dbSet = context.Set<TEntity>();
