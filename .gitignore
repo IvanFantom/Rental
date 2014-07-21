@@ -183,10 +183,3 @@ UpgradeLog*.htm
 *.rdl.data
 *.bim.layout
 *.bim_*.settings
-Rental.Data/Rental.Data.csproj
-Rental.Domain/Rental.Domain.csproj
-Rental.Services/Rental.Services.csproj
-Rental.sln
-Rental.WebUI/Rental.WebUI.csproj
-Rental.WebUI/Web.Debug.config
-Rental.WebUI/Web.Release.config
