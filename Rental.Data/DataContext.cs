@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Rental.Data.Mappings;
 using Rental.Domain.Entities;
 
 namespace Rental.Data
@@ -22,7 +23,10 @@ namespace Rental.Data
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+            modelBuilder.Configurations.Add(new UserMap());
+            modelBuilder.Configurations.Add(new RoleMap());
+            modelBuilder.Configurations.Add(new AdvertMap());
+            modelBuilder.Configurations.Add(new AddressMap());
         }
     }
 }

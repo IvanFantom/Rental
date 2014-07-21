@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Rental.Domain.Entities.Base;
 
 namespace Rental.Domain.Entities
 {
-    public class User
+    public class User : Entity<long>
     {
         private ICollection<Advert> _adverts;
         private ICollection<Role> _roles;
 
-        public long Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Email { get; set; }

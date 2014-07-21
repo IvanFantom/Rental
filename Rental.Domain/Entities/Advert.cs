@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Rental.Domain.Entities.Base;
 
 namespace Rental.Domain.Entities
 {
-    public class Advert
+    public class Advert : Entity<long>
     {
-        public long Id { get; set; }
         public string Header { get; set; }
         public string Content { get; set; }
         public int Footage { get; set; }

@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Rental.Domain.Entities.Base;
 
 namespace Rental.Domain.Entities
 {
-    public class Role
+    public class Role : Entity<long>
     {
         private ICollection<User> _users; 
 
-        public long Id { get; set; }
         public string Name { get; set; }
 
         public virtual ICollection<User> Users
