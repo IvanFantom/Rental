@@ -7,8 +7,8 @@
     <ProjectGuid>{A52743DA-FD94-49C5-A61A-355805EEB12E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Rental.Core</RootNamespace>
-    <AssemblyName>Rental.Core</AssemblyName>
+    <RootNamespace>Rental.Common</RootNamespace>
+    <AssemblyName>Rental.Common</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IMembershipService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
