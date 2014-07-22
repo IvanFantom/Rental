@@ -22,14 +22,15 @@ namespace Rental.Data.Mappings
 
             // Properties
             this.Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-            this.Property(x => x.Header).HasMaxLength(64).IsRequired();
-            this.Property(x => x.Content).HasMaxLength(null).IsRequired();
-            this.Property(x => x.Footage).IsRequired();
-            this.Property(x => x.IsReserved).IsRequired();
+            this.Property(x => x.Header).HasMaxLength(64).IsOptional();
+            this.Property(x => x.Content).HasMaxLength(null).IsOptional();
+            this.Property(x => x.Footage).IsOptional();
+            this.Property(x => x.IsReserved).IsOptional();
 
             // User one-to-many Advert
             this.HasRequired(a => a.User)
-                .WithMany(u => u.Adverts);
+                .WithMany(u => u.Adverts)
+                .HasForeignKey(a => a.UserId);
         }
     }
 }

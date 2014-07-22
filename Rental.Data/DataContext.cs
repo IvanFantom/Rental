@@ -24,10 +24,10 @@ namespace Rental.Data
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Configurations.Add<UserMap>(new EntityTypeConfiguration<UserMap>());
-            modelBuilder.Configurations.Add<RoleMap>(new EntityTypeConfiguration<RoleMap>());
-            modelBuilder.Configurations.Add<AdvertMap>(new EntityTypeConfiguration<AdvertMap>());
-            modelBuilder.Configurations.Add<AddressMap>(new EntityTypeConfiguration<AddressMap>());
+            modelBuilder.Configurations.Add(new UserMap());
+            modelBuilder.Configurations.Add(new RoleMap());
+            modelBuilder.Configurations.Add(new AdvertMap());
+            modelBuilder.Configurations.Add(new AddressMap());
         }
     }
 }

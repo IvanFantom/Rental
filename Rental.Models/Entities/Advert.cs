@@ -12,10 +12,9 @@ namespace Rental.Models.Entities
         public decimal Price { get; set; }
         public bool IsReserved { get; set; }
         
-        public virtual User User { get; set; }
         public long UserId { get; set; }
+        public virtual User User { get; set; }
         public virtual AdvertType Type { get; set; }
-        [Required]
         public virtual Address Address { get; set; }
     }
 }

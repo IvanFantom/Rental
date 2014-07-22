@@ -57,6 +57,10 @@
     <Compile Include="Migrations\201407211720490_InitializeDb.Designer.cs">
       <DependentUpon>201407211720490_InitializeDb.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201407221710326_InitializeDb1.cs" />
+    <Compile Include="Migrations\201407221710326_InitializeDb1.Designer.cs">
+      <DependentUpon>201407221710326_InitializeDb1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RentalDbInitializer.cs" />
@@ -65,11 +69,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201407211720490_InitializeDb.resx">
-      <DependentUpon>201407211720490_InitializeDb.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Rental.Interfaces\Rental.Interfaces.csproj">
@@ -84,6 +83,14 @@
       <Project>{2c6055b3-5fb9-4251-9f75-28c3c6bc5a10}</Project>
       <Name>Rental.Repositories</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201407211720490_InitializeDb.resx">
+      <DependentUpon>201407211720490_InitializeDb.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407221710326_InitializeDb1.resx">
+      <DependentUpon>201407221710326_InitializeDb1.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
