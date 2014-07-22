@@ -1,4 +1,5 @@
-﻿using Rental.Models.Entities.Base;
+﻿using System.ComponentModel.DataAnnotations;
+using Rental.Models.Entities.Base;
 using Rental.Models.Enums;
 
 namespace Rental.Models.Entities
@@ -14,6 +15,7 @@ namespace Rental.Models.Entities
         public virtual User User { get; set; }
         public long UserId { get; set; }
         public virtual AdvertType Type { get; set; }
+        [Required]
         public virtual Address Address { get; set; }
     }
 }

@@ -1,4 +1,6 @@
-﻿using Rental.Models.Entities.Base;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Rental.Models.Entities.Base;
 
 namespace Rental.Models.Entities
 {
@@ -9,7 +11,8 @@ namespace Rental.Models.Entities
         public string District { get; set; }
         public string Street { get; set; }
 
-        public virtual Advert Advert { get; set; }
+        [Key, ForeignKey("Advert")]
         public long AdvertId { get; set; }
+        public virtual Advert Advert { get; set; }
     }
 }

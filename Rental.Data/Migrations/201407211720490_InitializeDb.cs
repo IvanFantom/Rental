@@ -8,27 +8,27 @@ namespace Rental.Data.Migrations
         public override void Up()
         {
             CreateTable(
-                "dbo.Address",
+                "dbo.Addresses",
                 c => new
                     {
-                        Id = c.Long(nullable: false),
-                        Country = c.String(nullable: false, maxLength: 64),
-                        City = c.String(nullable: false, maxLength: 64),
-                        District = c.String(nullable: false, maxLength: 128),
-                        Street = c.String(nullable: false, maxLength: 128),
                         AdvertId = c.Long(nullable: false),
+                        Country = c.String(),
+                        City = c.String(),
+                        District = c.String(),
+                        Street = c.String(),
+                        Id = c.Long(nullable: false),
                     })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Advert", t => t.Id)
-                .Index(t => t.Id);
+                .PrimaryKey(t => t.AdvertId)
+                .ForeignKey("dbo.Adverts", t => t.AdvertId)
+                .Index(t => t.AdvertId);
             
             CreateTable(
-                "dbo.Advert",
+                "dbo.Adverts",
                 c => new
                     {
                         Id = c.Long(nullable: false, identity: true),
-                        Header = c.String(nullable: false, maxLength: 64),
-                        Content = c.String(nullable: false),
+                        Header = c.String(),
+                        Content = c.String(),
                         Footage = c.Int(nullable: false),
                         Price = c.Decimal(nullable: false, precision: 18, scale: 2),
                         IsReserved = c.Boolean(nullable: false),
@@ -36,60 +36,60 @@ namespace Rental.Data.Migrations
                         Type = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.User", t => t.UserId, cascadeDelete: true)
+                .ForeignKey("dbo.Users", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId);
             
             CreateTable(
-                "dbo.User",
+                "dbo.Users",
                 c => new
                     {
                         Id = c.Long(nullable: false, identity: true),
-                        Name = c.String(maxLength: 64),
-                        Surname = c.String(maxLength: 64),
-                        Email = c.String(nullable: false, maxLength: 128),
-                        Password = c.String(nullable: false, maxLength: 128),
+                        Name = c.String(),
+                        Surname = c.String(),
+                        Email = c.String(),
+                        Password = c.String(),
                     })
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
-                "dbo.Role",
+                "dbo.Roles",
                 c => new
                     {
                         Id = c.Long(nullable: false, identity: true),
-                        Name = c.String(nullable: false, maxLength: 64),
+                        Name = c.String(),
                     })
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
-                "dbo.UserRole",
+                "dbo.RoleUsers",
                 c => new
                     {
-                        UserId = c.Long(nullable: false),
-                        RoleId = c.Long(nullable: false),
+                        Role_Id = c.Long(nullable: false),
+                        User_Id = c.Long(nullable: false),
                     })
-                .PrimaryKey(t => new { t.UserId, t.RoleId })
-                .ForeignKey("dbo.User", t => t.UserId, cascadeDelete: true)
-                .ForeignKey("dbo.Role", t => t.RoleId, cascadeDelete: true)
-                .Index(t => t.UserId)
-                .Index(t => t.RoleId);
+                .PrimaryKey(t => new { t.Role_Id, t.User_Id })
+                .ForeignKey("dbo.Roles", t => t.Role_Id, cascadeDelete: true)
+                .ForeignKey("dbo.Users", t => t.User_Id, cascadeDelete: true)
+                .Index(t => t.Role_Id)
+                .Index(t => t.User_Id);
             
         }
         
         public override void Down()
         {
-            DropForeignKey("dbo.Address", "Id", "dbo.Advert");
-            DropForeignKey("dbo.Advert", "UserId", "dbo.User");
-            DropForeignKey("dbo.UserRole", "RoleId", "dbo.Role");
-            DropForeignKey("dbo.UserRole", "UserId", "dbo.User");
-            DropIndex("dbo.UserRole", new[] { "RoleId" });
-            DropIndex("dbo.UserRole", new[] { "UserId" });
-            DropIndex("dbo.Advert", new[] { "UserId" });
-            DropIndex("dbo.Address", new[] { "Id" });
-            DropTable("dbo.UserRole");
-            DropTable("dbo.Role");
-            DropTable("dbo.User");
-            DropTable("dbo.Advert");
-            DropTable("dbo.Address");
+            DropForeignKey("dbo.Addresses", "AdvertId", "dbo.Adverts");
+            DropForeignKey("dbo.RoleUsers", "User_Id", "dbo.Users");
+            DropForeignKey("dbo.RoleUsers", "Role_Id", "dbo.Roles");
+            DropForeignKey("dbo.Adverts", "UserId", "dbo.Users");
+            DropIndex("dbo.RoleUsers", new[] { "User_Id" });
+            DropIndex("dbo.RoleUsers", new[] { "Role_Id" });
+            DropIndex("dbo.Adverts", new[] { "UserId" });
+            DropIndex("dbo.Addresses", new[] { "AdvertId" });
+            DropTable("dbo.RoleUsers");
+            DropTable("dbo.Roles");
+            DropTable("dbo.Users");
+            DropTable("dbo.Adverts");
+            DropTable("dbo.Addresses");
         }
     }
 }
