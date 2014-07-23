@@ -21,7 +21,7 @@ namespace Rental.Data.Mappings
             this.HasKey(x => x.AdvertId);
 
             // Properties
-            this.Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+            this.Property(x => x.AdvertId).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
             this.Property(x => x.Country).HasMaxLength(64).IsRequired();
             this.Property(x => x.City).HasMaxLength(64).IsRequired();
             this.Property(x => x.District).HasMaxLength(128).IsRequired();

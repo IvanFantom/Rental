@@ -39,7 +39,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseService.cs" />
     <Compile Include="MembershipService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -47,6 +46,10 @@
     <ProjectReference Include="..\Rental.Common\Rental.Common.csproj">
       <Project>{a52743da-fd94-49c5-a61a-355805eeb12e}</Project>
       <Name>Rental.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Rental.Data\Rental.Data.csproj">
+      <Project>{279bf9b2-bb44-422f-bfde-2c8daa6ccc87}</Project>
+      <Name>Rental.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\Rental.Interfaces\Rental.Interfaces.csproj">
       <Project>{d34a453d-721a-4f31-9435-88c455f73517}</Project>

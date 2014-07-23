@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Rental.Models.Entities.Base;
 using Rental.Models.Enums;
 
 namespace Rental.Models.Entities
 {
-    public class Advert : Entity<long>
+    public class Advert
     {
+        public long Id { get; set; }
         public string Header { get; set; }
         public string Content { get; set; }
         public int Footage { get; set; }

@@ -3,19 +3,33 @@ using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using Rental.Interfaces;
-using Rental.Models.Entities.Base;
 
 namespace Rental.Repositories
 {
-    public class Repository<TEntity, TKey> : IRepository<TEntity, TKey> where TEntity : Entity
+    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class 
     {
-        private DbContext context;
-        private DbSet<TEntity> dbSet;
+        protected readonly DbContext _context;
+        protected readonly DbSet<TEntity> _dbSet;
 
         public Repository(DbContext context)
         {
-            this.context = context;
-            this.dbSet = context.Set<TEntity>();
+            this._context = context;
+            this._dbSet = context.Set<TEntity>();
+        }
+        
+        public virtual int Count
+        {
+            get { return _dbSet.Count(); }
+        }
+
+        public virtual IQueryable<TEntity> All()
+        {
+            return _dbSet.AsQueryable();
+        }
+
+        public virtual TEntity GetById(object id)
+        {
+            return _dbSet.Find(id);
         }
 
         public virtual IQueryable<TEntity> Get(
@@ -23,7 +37,7 @@ namespace Rental.Repositories
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             string includeProperties = "")
         {
-            IQueryable<TEntity> query = dbSet;
+            IQueryable<TEntity> query = _dbSet;
 
             if (filter != null)
             {
@@ -31,7 +45,7 @@ namespace Rental.Repositories
             }
 
             foreach (var includeProperty in includeProperties.Split
-                (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                (new char[] {','}, StringSplitOptions.RemoveEmptyEntries))
             {
                 query = query.Include(includeProperty);
             }
@@ -39,34 +53,74 @@ namespace Rental.Repositories
             return orderBy != null ? orderBy(query) : query;
         }
 
-        public virtual TEntity GetById(TKey id)
+        public virtual IQueryable<TEntity> Filter(Expression<Func<TEntity, bool>> predicate)
         {
-            return dbSet.Find(id);
+            return _dbSet.Where(predicate).AsQueryable();
         }
 
-        public virtual void Create(TEntity entity)
+        public IQueryable<TEntity> Filter(Expression<Func<TEntity, bool>> filter, out int total, int index = 0, int size = 50)
         {
-            dbSet.Add(entity);
+            var skipCount = index * size;
+            var resetSet = filter != null ? _dbSet.Where(filter).AsQueryable() : _dbSet.AsQueryable();
+            
+            resetSet = skipCount == 0 ? resetSet.Take(size) : resetSet.Skip(skipCount).Take(size);
+            total = resetSet.Count();
+
+            return resetSet.AsQueryable();
         }
 
-        public virtual void Delete(TKey id)
+        public bool Contains(Expression<Func<TEntity, bool>> predicate)
         {
-            TEntity entity = dbSet.Find(id);
+            return _dbSet.Count(predicate) > 0;
+        }
+
+        public virtual TEntity Find(params object[] keys)
+        {
+            return _dbSet.Find(keys);
+        }
+
+        public virtual TEntity Find(Expression<Func<TEntity, bool>> predicate)
+        {
+            return _dbSet.FirstOrDefault(predicate);
+        }
+        
+        public virtual TEntity Create(TEntity entity)
+        {
+            var newEntity = _dbSet.Add(entity);
+            return newEntity;
+        }
+
+        public virtual void Delete(object id)
+        {
+            var entity = _dbSet.Find(id);
             Delete(entity);
         }
 
         public virtual void Delete(TEntity entity)
         {
-            if (context.Entry(entity).State == EntityState.Detached)
-                dbSet.Attach(entity);
+            if (_context.Entry(entity).State == EntityState.Detached)
+                _dbSet.Attach(entity);
 
-            dbSet.Remove(entity);
+            _dbSet.Remove(entity);
         }
-
+        
+        public virtual void Delete(Expression<Func<TEntity, bool>> predicate)
+        {
+            var entitiesToDelete = Filter(predicate);
+            foreach (var entity in entitiesToDelete)
+            {
+                if (_context.Entry(entity).State == EntityState.Detached)
+                {
+                    _dbSet.Attach(entity);
+                }
+                _dbSet.Remove(entity);
+            }
+        }
+        
         public virtual void Update(TEntity entity)
         {
-            dbSet.Attach(entity);
-            context.Entry(entity).State = EntityState.Modified;
+            _dbSet.Attach(entity);
+            _context.Entry(entity).State = EntityState.Modified;
         }
     }
 }

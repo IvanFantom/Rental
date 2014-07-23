@@ -15,10 +15,6 @@ namespace Rental.Data
     public class UnitOfWork : IUnitOfWork
     {
         private readonly DataContext _context;
-        private IRepository<User, long> _userRepository;
-        private IRepository<Role, long> _roleRepository;
-        private IRepository<Advert, long> _advertRepository;
-        private IRepository<Address, long> _addressRepository;
         private bool _isDisposed;
 
         public UnitOfWork()
@@ -27,21 +23,9 @@ namespace Rental.Data
             _isDisposed = false;
         }
 
-        public IRepository<Role, long> RoleRepository
+        public IRepository<TEntity> GetRepository<TEntity>() where TEntity : class
         {
-            get { return _roleRepository ?? (_roleRepository = new Repository<Role, long>(_context)); }
-        }
-        public IRepository<User, long> UserRepository
-        {
-            get { return _userRepository ?? (_userRepository = new Repository<User, long>(_context)); }
-        }
-        public IRepository<Advert, long> AdvertRepository
-        {
-            get { return _advertRepository ?? (_advertRepository = new Repository<Advert, long>(_context)); }
-        }
-        public IRepository<Address, long> AddressRepository
-        {
-            get { return _addressRepository ?? (_addressRepository = new Repository<Address, long>(_context)); }
+            return new Repository<TEntity>(_context);
         }
 
         #region IUnitOfWork
@@ -98,20 +82,20 @@ namespace Rental.Data
         }
         protected virtual void Dispose(bool disposing)
         {
-            if (!this._isDisposed)
+            if (!_isDisposed)
             {
                 if (disposing)
                 {
                     _context.Dispose();
                 }
             }
-            this._isDisposed = true;
+            _isDisposed = true;
         }
         ~UnitOfWork()
         {
             Dispose(false);
         }
 
-        #endregion
+        #endregion        
     }
 }

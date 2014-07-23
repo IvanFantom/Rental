@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
-using Rental.Models.Entities.Base;
 
 namespace Rental.Models.Entities
 {
-    public class Role : Entity<long>
+    public class Role
     {
         private ICollection<User> _users; 
 
+        public long Id { get; set; }
         public string Name { get; set; }
 
         public virtual ICollection<User> Users

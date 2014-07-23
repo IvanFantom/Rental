@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
-using Rental.Models.Entities.Base;
 
 namespace Rental.Models.Entities
 {
-    public class User : Entity<long>
+    public class User
     {
         private ICollection<Advert> _adverts;
         private ICollection<Role> _roles;
 
+        public long Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Email { get; set; }

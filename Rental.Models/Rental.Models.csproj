@@ -51,8 +51,6 @@
     <Compile Include="Entities\Address.cs" />
     <Compile Include="Entities\Advert.cs" />
     <Compile Include="Enums\AdvertType.cs" />
-    <Compile Include="Entities\Base\Entity%271.cs" />
-    <Compile Include="Entities\Base\Entity.cs" />
     <Compile Include="Entities\Role.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

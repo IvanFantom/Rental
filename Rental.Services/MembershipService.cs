@@ -4,13 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Rental.Common;
+using Rental.Data;
 using Rental.Interfaces;
 
 namespace Rental.Services
 {
-    public class MembershipService : BaseService, IMembershipService
+    public class MembershipService : IMembershipService
     {
-        public MembershipService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
+        protected UnitOfWork _unitOfWork;
+
+        public MembershipService()
+        {
+            _unitOfWork = new UnitOfWork();
+        }
 
         public void LogInUser(long userId)
         {

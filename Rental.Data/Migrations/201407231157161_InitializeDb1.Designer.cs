@@ -13,7 +13,7 @@ namespace Rental.Data.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201407221710326_InitializeDb1"; }
+            get { return "201407231157161_InitializeDb1"; }
         }
         
         string IMigrationMetadata.Source

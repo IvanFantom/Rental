@@ -1,10 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Rental.Models.Entities.Base;
 
 namespace Rental.Models.Entities
 {
-    public class Address : Entity<long>
+    public class Address
     {
         public string Country { get; set; }
         public string City { get; set; }

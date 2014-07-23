@@ -57,9 +57,9 @@
     <Compile Include="Migrations\201407211720490_InitializeDb.Designer.cs">
       <DependentUpon>201407211720490_InitializeDb.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201407221710326_InitializeDb1.cs" />
-    <Compile Include="Migrations\201407221710326_InitializeDb1.Designer.cs">
-      <DependentUpon>201407221710326_InitializeDb1.cs</DependentUpon>
+    <Compile Include="Migrations\201407231157161_InitializeDb1.cs" />
+    <Compile Include="Migrations\201407231157161_InitializeDb1.Designer.cs">
+      <DependentUpon>201407231157161_InitializeDb1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -88,8 +88,8 @@
     <EmbeddedResource Include="Migrations\201407211720490_InitializeDb.resx">
       <DependentUpon>201407211720490_InitializeDb.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201407221710326_InitializeDb1.resx">
-      <DependentUpon>201407221710326_InitializeDb1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201407231157161_InitializeDb1.resx">
+      <DependentUpon>201407231157161_InitializeDb1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
