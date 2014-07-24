@@ -22,8 +22,8 @@ namespace Rental.Data.Mappings
 
             // Properties
             this.Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-            this.Property(x => x.Surname).HasMaxLength(64).IsOptional();
-            this.Property(x => x.Email).HasMaxLength(128).IsRequired();
+            this.Property(x => x.LastName).HasMaxLength(64).IsOptional();
+            this.Property(x => x.Email).HasMaxLength(128).IsOptional();
         }
     }
 }

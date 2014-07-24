@@ -7,7 +7,7 @@ namespace Rental.Models.Entities
     {
         private ICollection<Advert> _adverts;
 
-        public string Surname { get; set; }
+        public string LastName { get; set; }
         public string Email { get; set; }
 
         public virtual ICollection<Advert> Adverts 

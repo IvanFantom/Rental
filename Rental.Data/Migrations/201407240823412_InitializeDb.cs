@@ -101,8 +101,8 @@ namespace Rental.Data.Migrations
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
-                        Surname = c.String(maxLength: 64),
-                        Email = c.String(nullable: false, maxLength: 128),
+                        LastName = c.String(maxLength: 64),
+                        Email = c.String(maxLength: 128),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.AspNetUsers", t => t.Id)
