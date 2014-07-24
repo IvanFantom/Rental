@@ -5,7 +5,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using Rental.Data;
 
 namespace Rental.WebUI
 {
@@ -14,9 +13,7 @@ namespace Rental.WebUI
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
-            RouteConfig.RegisterRoutes(RouteTable.Routes);
-
-            Database.SetInitializer(new RentalDbInitializer());
+            RouteConfig.RegisterRoutes(RouteTable.Routes);  
         }
     }
 }

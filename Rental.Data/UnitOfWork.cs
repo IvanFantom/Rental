@@ -6,6 +6,8 @@ using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Rental.Interfaces;
 using Rental.Models.Entities;
 using Rental.Repositories;
@@ -20,14 +22,17 @@ namespace Rental.Data
         public UnitOfWork()
         {
             _context = new DataContext();
+            UserManager = new UserManager<User>(new UserStore<User>(_context));
             _isDisposed = false;
         }
+
+        public UserManager<User> UserManager { get; private set; }
 
         public IRepository<TEntity> GetRepository<TEntity>() where TEntity : class
         {
             return new Repository<TEntity>(_context);
         }
-
+        
         #region IUnitOfWork
 
         public void Commit()

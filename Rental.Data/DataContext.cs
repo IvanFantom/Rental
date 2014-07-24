@@ -2,30 +2,34 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Rental.Data.Mappings;
 using Rental.Models.Entities;
 
 namespace Rental.Data
 {
-    public class DataContext : DbContext
+    public class DataContext : IdentityDbContext<User>
     {
-        public DataContext() : base("DataContextConnectionString")
+        public DataContext()
+            : base("DataContextConnectionString")
         {
-            
+            Database.SetInitializer(new RentalDbInitializer());
+            //Debug.Write(Database.Connection.ConnectionString);
+            //Database.SetInitializer<DataContext>(new CreateDatabaseIfNotExists<DataContext>());
         }
 
-        public DbSet<User> Users { get; set; }
-        public DbSet<Role> Roles { get; set; }
         public DbSet<Advert> Adverts { get; set; }
         public DbSet<Address> Addresses { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Configurations.Add(new UserMap());
-            modelBuilder.Configurations.Add(new RoleMap());
             modelBuilder.Configurations.Add(new AdvertMap());
             modelBuilder.Configurations.Add(new AddressMap());
         }
