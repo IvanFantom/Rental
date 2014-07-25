@@ -86,8 +86,8 @@ namespace Rental.WebUI.Controllers
         }
 
         //
-        // GET: /Account/Cabinet
-        public ActionResult Cabinet()
+        // GET: /Account/Summary
+        public ActionResult Summary()
         {
             var user = UserManager.FindById(User.Identity.GetUserId());
             var model = new UserCabinetViewModel()
@@ -99,8 +99,8 @@ namespace Rental.WebUI.Controllers
         }
 
         //
-        // GET: /Account/Edit
-        public ActionResult Edit(ManageMessageId? message)
+        // GET: /Account/EditProfile
+        public ActionResult EditProfile(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
                 message == ManageMessageId.EditProfileSuccess? "You profile data has been updated"
@@ -118,10 +118,10 @@ namespace Rental.WebUI.Controllers
         }
 
         //
-        // POST: /Account/Edit
+        // POST: /Account/EditProfile
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(EditUserViewModel model)
+        public async Task<ActionResult> EditProfile(EditUserViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -132,7 +132,7 @@ namespace Rental.WebUI.Controllers
                 var result = await UserManager.UpdateAsync(user);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Edit", new {Message = ManageMessageId.EditProfileSuccess});
+                    return RedirectToAction("EditProfile", new {Message = ManageMessageId.EditProfileSuccess});
                 }
                 
                 AddErrors(result);

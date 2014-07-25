@@ -1,23 +1,24 @@
-﻿@model Rental.WebUI.Models.Account.UserCabinetViewModel
+﻿
 @{
     ViewBag.Title = "User's cabinet";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@ViewBag.Title.</h2>
+<h2>@ViewBag.Title</h2>
 
 <div class="container">
     <div class="row well">
         <div class="col-md-2">
             <ul class="nav nav-pills nav-stacked well">
-                <li><a href="@Url.Action("Cabinet", "Account")"><i class="glyphicon glyphicon-home"></i> Home</a></li>
-                <li><a href="@Url.Action("Edit", "Account")"><i class="glyphicon glyphicon-user"></i> Profile</a></li>
+                <li><a href="@Url.Action("Summary", "Account")"><i class="glyphicon glyphicon-home"></i> Home</a></li>
+                <li><a href="@Url.Action("EditProfile", "Account")"><i class="glyphicon glyphicon-user"></i> Profile</a></li>
                 <li><a href="@Url.Action("AdvertList", "Advert")"><i class="glyphicon glyphicon-list-alt"></i> Adverts</a></li>
                 <li><a href="@Url.Action("Security", "Account")"><i class="glyphicon glyphicon-lock"></i> Security</a></li>
                 <li><a href="javascript:document.getElementById('logoutForm').submit()"><i class="glyphicon glyphicon-log-out"></i> Logoff</a></li>
             </ul>
         </div>
         <div class="col-md-10">
-            <p>You're logged in as <strong>@Model.UserName</strong>.</p>
+            @RenderBody()
         </div>
     </div>
 </div>
