@@ -15,7 +15,7 @@ namespace Rental.WebUI.Models.Advert
         public string City { get; set; }
 
         [Required]
-        public string Distrcit { get; set; }
+        public string District { get; set; }
 
         [Required]
         public string Street { get; set; }

@@ -25,6 +25,7 @@ namespace Rental.WebUI.Models.Advert
         public decimal Price { get; set; }
 
         [Required]
+        [Display(Name = "Type")]
         public AdvertType AdvertType { get; set; }
 
         [Required]
