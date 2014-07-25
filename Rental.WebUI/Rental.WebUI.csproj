@@ -182,6 +182,8 @@
     <Compile Include="Models\Account\EditUserViewModel.cs" />
     <Compile Include="Models\Account\RegisterViewModel.cs" />
     <Compile Include="Models\Account\UserCabinetViewModel.cs" />
+    <Compile Include="Models\Advert\AddressViewModel.cs" />
+    <Compile Include="Models\Advert\AdvertViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -200,6 +202,7 @@
     <Content Include="Views\Account\EditProfile.cshtml" />
     <Content Include="Views\Account\_CabinetLayout.cshtml" />
     <Content Include="Views\Account\Summary.cshtml" />
+    <Content Include="Views\Advert\AdvertList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -209,7 +212,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Advert\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Rental.Data\Rental.Data.csproj">
