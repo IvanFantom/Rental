@@ -86,10 +86,59 @@ namespace Rental.WebUI.Controllers
         }
 
         //
-        // GET: /Account/Manage
-        public ActionResult Manage()
+        // GET: /Account/Cabinet
+        public ActionResult Cabinet()
         {
-            return View();
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            var model = new UserCabinetViewModel()
+            {
+                UserName = user.UserName
+            };
+
+            return View(model);
+        }
+
+        //
+        // GET: /Account/Edit
+        public ActionResult Edit(ManageMessageId? message)
+        {
+            ViewBag.StatusMessage =
+                message == ManageMessageId.EditProfileSuccess? "You profile data has been updated"
+                : message == ManageMessageId.Error ? "An error has occurred."
+                : "";
+
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            var model = new EditUserViewModel()
+            {
+                LastName = user.LastName,
+                Email = user.Email
+            };
+
+            return View(model);
+        }
+
+        //
+        // POST: /Account/Edit
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Edit(EditUserViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = UserManager.FindById(User.Identity.GetUserId());
+                user.LastName = model.LastName;
+                user.Email = model.Email;
+
+                var result = await UserManager.UpdateAsync(user);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Edit", new {Message = ManageMessageId.EditProfileSuccess});
+                }
+                
+                AddErrors(result);
+            }
+
+            return View(model);
         }
 
         //
@@ -103,6 +152,12 @@ namespace Rental.WebUI.Controllers
         }
 
         #region Helpers
+        public enum ManageMessageId
+        {
+            EditProfileSuccess,
+            ChangePasswordSuccess,
+            Error
+        }
         private IAuthenticationManager AuthenticationManager
         {
             get

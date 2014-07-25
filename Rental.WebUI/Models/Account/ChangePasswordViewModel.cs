@@ -6,17 +6,8 @@ using System.Web;
 
 namespace Rental.WebUI.Models.Account
 {
-    public class ManageUserViewModel
+    public class ChangePasswordViewModel
     {
-        [Required]
-        [Display(Name = "Last Name")]
-        public string LastName { get; set; }
-
-        [Required]
-        [Display(Name = "Email ID")]
-        [EmailAddress]
-        public string Email { get; set; }
-        
         [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Current password")]
