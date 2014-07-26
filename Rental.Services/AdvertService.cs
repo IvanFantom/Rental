@@ -9,23 +9,13 @@ using Rental.Interfaces;
 
 namespace Rental.Services
 {
-    public class MembershipService : IMembershipService
+    public class AdvertService : IAdvertService
     {
         protected UnitOfWork _unitOfWork;
 
-        public MembershipService()
+        public AdvertService()
         {
             _unitOfWork = new UnitOfWork();
-        }
-
-        public void LogInUser(long userId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void LogOutUser(long userId)
-        {
-            throw new NotImplementedException();
         }
     }
 }

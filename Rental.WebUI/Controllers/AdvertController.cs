@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
@@ -22,44 +23,95 @@ namespace Rental.WebUI.Controllers
 
         //
         // GET: /Advert/AdvertList
-        public ActionResult AdvertList()
+        public ActionResult List()
         {
             return View();
+        }
+        
+        //
+        // GET: /Advert/Index
+        public ActionResult Index()
+        {
+            var userId = User.Identity.GetUserId();
+            ViewBag.UserId = userId;
+
+            var user = UnitOfWork.UserManager.FindById(userId);
+            var model = user.Adverts.Select(x => new AdvertViewModel()
+            {
+                Id = x.Id,
+                Header = x.Header,
+                Content = x.Content,
+                Footage = x.Footage,
+                Price = x.Price,
+                AdvertType = x.Type,
+                Address = new AddressViewModel()
+                {
+                    Country = x.Address.Country,
+                    City = x.Address.City,
+                    District = x.Address.District,
+                    Street = x.Address.Street
+                }
+            });
+
+            return PartialView("_IndexPartial", model);
+        }
+
+        //
+        // GET: /Advert/Create
+        public ActionResult Create(string userId)
+        {
+            var advert = new AdvertViewModel() {UserId = userId};
+
+            return PartialView("_CreatePartial", advert);
         }
 
         //
         // POST: /Advert/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(AdvertViewModel model)
+        public ActionResult Create([Bind] AdvertViewModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid) return PartialView("_CreatePartial", model);
+
+            var user = UnitOfWork.UserManager.FindById(model.UserId);
+            var address = new Address()
             {
-                var user = UnitOfWork.UserManager.FindById(User.Identity.GetUserId());
-                var address = new Address()
-                {
-                    Country = model.Address.Country,
-                    City = model.Address.City,
-                    District = model.Address.District,
-                    Street = model.Address.Street
-                };
-                var advert = new Advert()
-                {
-                    Header = model.Header,
-                    Content = model.Content,
-                    Footage = model.Footage,
-                    Price = model.Price,
-                    Type = model.AdvertType,
-                    User = user,
-                    Address = address
-                };
-                UnitOfWork.GetRepository<Advert>().Create(advert);
-                UnitOfWork.Commit();
+                Country = model.Address.Country,
+                City = model.Address.City,
+                District = model.Address.District,
+                Street = model.Address.Street
+            };
+            var advert = new Advert()
+            {
+                Header = model.Header,
+                Content = model.Content,
+                Footage = model.Footage,
+                Price = model.Price,
+                Type = model.AdvertType,
+                User = user,
+                Address = address
+            };
+            UnitOfWork.GetRepository<Advert>().Create(advert);
+            UnitOfWork.Commit();
 
-                return RedirectToAction("AdvertList");
-            }
+            var url = Url.Action("Index", "Advert");
+            return Json(new {success = true, url = url});
+        }
 
-            return View("AdvertList");
+        //
+        // GET: /Advert/Edit
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit()
+        {
+            return View();
+        }
+
+        //
+        // GET: /Advert/Delete
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete()
+        {
+            return View();
         }
 	}
 }

@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Account/_CabinetLayout.cshtml";
+}
+
+<h3>Adverts management</h3>
+
+<!-- modal placeholder-->
+<div id='advertModal' class='modal fade in'>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id='advertModalContent'></div>
+        </div>
+    </div>
+</div>
+
+<div id="replaceTarget">
+    @{ Html.RenderAction("Index", "Advert"); }
+</div>

@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Rental.Common
 {
-    public interface IMembershipService
+    public interface IAdvertService
     {
-        void LogInUser(long userId);
-        void LogOutUser(long userId);
+        
     }
 }

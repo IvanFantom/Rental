@@ -10,6 +10,8 @@ namespace Rental.WebUI.Models.Advert
 {
     public class AdvertViewModel
     {
+        public long Id { get; set; }
+
         [Required]
         [StringLength(64, ErrorMessage = "The header should be no more than {0} characters long.")]
         public string Header { get; set; }
@@ -30,5 +32,7 @@ namespace Rental.WebUI.Models.Advert
 
         [Required]
         public AddressViewModel Address { get; set; }
+
+        public string UserId { get; set; }
     }
 }

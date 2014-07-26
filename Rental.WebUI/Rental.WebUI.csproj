@@ -168,6 +168,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modalform.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
@@ -210,7 +211,9 @@
     <Content Include="Views\Account\EditProfile.cshtml" />
     <Content Include="Views\Account\_CabinetLayout.cshtml" />
     <Content Include="Views\Account\Summary.cshtml" />
-    <Content Include="Views\Advert\AdvertList.cshtml" />
+    <Content Include="Views\Advert\List.cshtml" />
+    <Content Include="Views\Advert\_IndexPartial.cshtml" />
+    <Content Include="Views\Advert\_CreatePartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
