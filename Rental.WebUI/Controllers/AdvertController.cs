@@ -100,18 +100,102 @@ namespace Rental.WebUI.Controllers
 
         //
         // GET: /Advert/Edit
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit()
+        public ActionResult Edit(long? advertId)
         {
-            return View();
+            var advert = UnitOfWork.GetRepository<Advert>().GetById(advertId);
+            var model = new AdvertViewModel()
+            {
+                Id = advert.Id,
+                Header = advert.Header,
+                Content = advert.Content,
+                Footage = advert.Footage,
+                Price = advert.Price,
+                AdvertType = advert.Type,
+                UserId = advert.UserId,
+                Address = new AddressViewModel()
+                {
+                    Country = advert.Address.Country,
+                    City = advert.Address.City,
+                    District = advert.Address.District,
+                    Street = advert.Address.Street
+                }
+            };
+
+            return PartialView("_EditPartial", model);
+        }
+
+        //
+        // POST: /Advert/Edit
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(AdvertViewModel model)
+        {
+            if (!ModelState.IsValid) return PartialView("_EditPartial", model);
+
+            //var user = UnitOfWork.UserManager.FindById(model.UserId);
+            var address = new Address()
+            {
+                AdvertId = model.Id,
+                Country = model.Address.Country,
+                City = model.Address.City,
+                District = model.Address.District,
+                Street = model.Address.Street
+            };
+            var advert = new Advert()
+            {
+                Id = model.Id,
+                Header = model.Header,
+                Content = model.Content,
+                Footage = model.Footage,
+                Price = model.Price,
+                Type = model.AdvertType,
+                UserId = model.UserId,
+                //User = user,
+            };
+            UnitOfWork.GetRepository<Advert>().Update(advert);
+            UnitOfWork.GetRepository<Address>().Update(address);
+            UnitOfWork.Commit();
+
+            var url = Url.Action("Index", "Advert");
+            return Json(new { success = true, url = url });
         }
 
         //
         // GET: /Advert/Delete
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete()
+        public ActionResult Delete(long? advertId)
         {
-            return View();
+            var advert = UnitOfWork.GetRepository<Advert>().GetById(advertId);
+            var model = new AdvertViewModel()
+            {
+                Id = advert.Id,
+                Header = advert.Header,
+                Content = advert.Content,
+                Footage = advert.Footage,
+                Price = advert.Price,
+                AdvertType = advert.Type,
+                Address = new AddressViewModel()
+                {
+                    Country = advert.Address.Country,
+                    City = advert.Address.City,
+                    District = advert.Address.District,
+                    Street = advert.Address.Street
+                }
+            };
+
+            return PartialView("_DeletePartial", model);
+        }
+
+        //
+        // POST: /Advert/Delete
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(long advertId)
+        {
+            UnitOfWork.GetRepository<Advert>().Delete(advertId);
+            UnitOfWork.Commit();
+
+            var url = Url.Action("Index", "Advert");
+            return Json(new { success = true, url = url });
         }
 	}
 }

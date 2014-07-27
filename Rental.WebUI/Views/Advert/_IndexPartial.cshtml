@@ -29,10 +29,10 @@
                     <td>@item.AdvertType</td>
                     <td>
                         <div class="pull-right">
-                            <a href="@Url.Action("Edit", "Advert", routeValues: new {id = item.Id})" class="btn btn-default" data-modal="">
+                            <a href="@Url.Action("Edit", "Advert", routeValues: new {advertId = item.Id})" class="btn btn-default" data-modal="">
                                 <i class="glyphicon glyphicon-pencil"></i>
                             </a>
-                            <a href="@Url.Action("Delete", "Advert", routeValues: new {id = item.Id})" class="btn btn-danger" data-modal="">
+                            <a href="@Url.Action("Delete", "Advert", routeValues: new {advertId = item.Id})" class="btn btn-danger" data-modal="">
                                 <i class="glyphicon glyphicon-trash"></i>
                             </a>
                         </div>

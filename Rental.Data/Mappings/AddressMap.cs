@@ -29,7 +29,8 @@ namespace Rental.Data.Mappings
 
             // Advert one-to-one Address
             this.HasRequired(a => a.Advert)
-                .WithRequiredDependent(a => a.Address);
+                .WithRequiredDependent(a => a.Address)
+                .WillCascadeOnDelete(true);
         }
     }
 }

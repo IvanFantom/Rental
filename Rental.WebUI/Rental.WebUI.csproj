@@ -214,6 +214,8 @@
     <Content Include="Views\Advert\List.cshtml" />
     <Content Include="Views\Advert\_IndexPartial.cshtml" />
     <Content Include="Views\Advert\_CreatePartial.cshtml" />
+    <Content Include="Views\Advert\_EditPartial.cshtml" />
+    <Content Include="Views\Advert\_DeletePartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -251,7 +253,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>55895</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:1506/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
