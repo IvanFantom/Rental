@@ -22,15 +22,15 @@ namespace Rental.WebUI.Controllers
         public UnitOfWork UnitOfWork { get; private set; }
 
         //
-        // GET: /Advert/AdvertList
-        public ActionResult List()
+        // GET: /Advert/List
+        public ActionResult Index()
         {
             return View();
         }
         
         //
         // GET: /Advert/Index
-        public ActionResult Index()
+        public ActionResult List()
         {
             var userId = User.Identity.GetUserId();
             ViewBag.UserId = userId;
@@ -53,7 +53,7 @@ namespace Rental.WebUI.Controllers
                 }
             });
 
-            return PartialView("_IndexPartial", model);
+            return PartialView("_ListPartial", model);
         }
 
         //
@@ -69,7 +69,7 @@ namespace Rental.WebUI.Controllers
         // POST: /Advert/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind] AdvertViewModel model)
+        public ActionResult Create(AdvertViewModel model)
         {
             if (!ModelState.IsValid) return PartialView("_CreatePartial", model);
 
@@ -94,7 +94,7 @@ namespace Rental.WebUI.Controllers
             UnitOfWork.GetRepository<Advert>().Create(advert);
             UnitOfWork.Commit();
 
-            var url = Url.Action("Index", "Advert");
+            var url = Url.Action("List", "Advert");
             return Json(new {success = true, url = url});
         }
 
@@ -132,7 +132,6 @@ namespace Rental.WebUI.Controllers
         {
             if (!ModelState.IsValid) return PartialView("_EditPartial", model);
 
-            //var user = UnitOfWork.UserManager.FindById(model.UserId);
             var address = new Address()
             {
                 AdvertId = model.Id,
@@ -150,13 +149,12 @@ namespace Rental.WebUI.Controllers
                 Price = model.Price,
                 Type = model.AdvertType,
                 UserId = model.UserId,
-                //User = user,
             };
             UnitOfWork.GetRepository<Advert>().Update(advert);
             UnitOfWork.GetRepository<Address>().Update(address);
             UnitOfWork.Commit();
 
-            var url = Url.Action("Index", "Advert");
+            var url = Url.Action("List", "Advert");
             return Json(new { success = true, url = url });
         }
 
@@ -194,7 +192,7 @@ namespace Rental.WebUI.Controllers
             UnitOfWork.GetRepository<Advert>().Delete(advertId);
             UnitOfWork.Commit();
 
-            var url = Url.Action("Index", "Advert");
+            var url = Url.Action("List", "Advert");
             return Json(new { success = true, url = url });
         }
 	}

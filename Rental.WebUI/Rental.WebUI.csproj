@@ -211,11 +211,12 @@
     <Content Include="Views\Account\EditProfile.cshtml" />
     <Content Include="Views\Account\_CabinetLayout.cshtml" />
     <Content Include="Views\Account\Summary.cshtml" />
-    <Content Include="Views\Advert\List.cshtml" />
-    <Content Include="Views\Advert\_IndexPartial.cshtml" />
+    <Content Include="Views\Advert\Index.cshtml" />
+    <Content Include="Views\Advert\_ListPartial.cshtml" />
     <Content Include="Views\Advert\_CreatePartial.cshtml" />
     <Content Include="Views\Advert\_EditPartial.cshtml" />
     <Content Include="Views\Advert\_DeletePartial.cshtml" />
+    <Content Include="Views\Home\_LIstPartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
