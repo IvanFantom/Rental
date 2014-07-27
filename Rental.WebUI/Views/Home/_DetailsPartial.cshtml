@@ -1,0 +1,41 @@
+﻿@model Rental.WebUI.Models.Advert.AdvertViewModel
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="advertModalLabel">Advert details</h4>
+</div>
+
+<div class="modal-body">
+    <dl class="dl-horizontal">
+        <dt>@Html.DisplayNameFor(m => m.Header)</dt>
+        <dd>@Html.DisplayFor(m => m.Header)</dd>
+
+        <dt>@Html.DisplayNameFor(m => m.Content)</dt>
+        <dd>@Html.DisplayFor(m => m.Content)</dd>
+
+        <dt>@Html.DisplayNameFor(m => m.Footage)</dt>
+        <dd>@Html.DisplayFor(m => m.Footage)</dd>
+
+        <dt>@Html.DisplayNameFor(m => m.Price)</dt>
+        <dd>@Html.DisplayFor(m => m.Price)</dd>
+
+        <dt>@Html.DisplayNameFor(m => m.AdvertType)</dt>
+        <dd>@Html.DisplayFor(m => m.AdvertType)</dd>
+
+        <dt>@Html.DisplayNameFor(m => m.Address.Country)</dt>
+        <dd>@Html.DisplayFor(m => m.Address.Country)</dd>
+
+        <dt>@Html.DisplayNameFor(m => m.Address.City)</dt>
+        <dd>@Html.DisplayFor(m => m.Address.City)</dd>
+
+        <dt>@Html.DisplayNameFor(m => m.Address.District)</dt>
+        <dd>@Html.DisplayFor(m => m.Address.District)</dd>
+
+        <dt>@Html.DisplayNameFor(m => m.Address.Street)</dt>
+        <dd>@Html.DisplayFor(m => m.Address.Street)</dd>
+    </dl>
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-default" type="button" data-dismiss="modal">Close</button>
+</div>

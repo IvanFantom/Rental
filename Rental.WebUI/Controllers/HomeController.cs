@@ -49,11 +49,26 @@ namespace Rental.WebUI.Controllers
             return PartialView("_ListPartial", model);
         }
 
-        public ActionResult Details()
+        public ActionResult Details(long advertId)
         {
-            ViewBag.Message = "Your application description page.";
+            var advert = UnitOfWork.GetRepository<Advert>().GetById(advertId);
+            var model = new AdvertViewModel()
+            {
+                Header = advert.Header,
+                Content = advert.Content,
+                Footage = advert.Footage,
+                Price = advert.Price,
+                AdvertType = advert.Type,
+                Address = new AddressViewModel()
+                {
+                    Country = advert.Address.Country,
+                    City = advert.Address.City,
+                    District = advert.Address.District,
+                    Street = advert.Address.Street
+                }
+            };
 
-            return View();
+            return PartialView("_DetailsPartial", model);
         }
 
         public ActionResult Contact()

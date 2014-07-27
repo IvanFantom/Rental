@@ -217,6 +217,7 @@
     <Content Include="Views\Advert\_EditPartial.cshtml" />
     <Content Include="Views\Advert\_DeletePartial.cshtml" />
     <Content Include="Views\Home\_LIstPartial.cshtml" />
+    <Content Include="Views\Home\_DetailsPartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
