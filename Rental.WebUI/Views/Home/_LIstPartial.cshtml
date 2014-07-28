@@ -1,30 +1,38 @@
-﻿@model IEnumerable<Rental.WebUI.Models.Advert.AdvertViewModel>
+﻿@model Rental.WebUI.Models.Home.ListViewModel
 
-<table class="table table-hover">
-    <tr>
-        <th>@Html.DisplayNameFor(x => x.Header)</th>
-        <th>@Html.DisplayNameFor(x => x.Footage)</th>
-        <th>@Html.DisplayNameFor(x => x.Price)</th>
-        <th>@Html.DisplayNameFor(x => x.Address.Street)</th>
-        <th>@Html.DisplayNameFor(x => x.AdvertType)</th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+@{
+    var pagedList = Model.AdvertPagedList;
+}
+<div class="table-responsive">
+    <table class="table table-hover table-condensed">
         <tr>
-            <td>@item.Header</td>
-            <td>@item.Footage</td>
-            <td>@item.Price</td>
-            <td>@item.Address.Street</td>
-            <td>@item.AdvertType</td>
-            <td>
-                <div class="pull-right">
-                    <a href="@Url.Action("Details", "Home", routeValues: new { advertId = item.Id })" class="btn btn-default" data-modal="">
-                        <i class="glyphicon glyphicon-th-list"></i>
-                    </a>
-                </div>
-            </td>
+            <th>@Html.DisplayNameFor(m => m.AdvertPagedList.FirstOrDefault().Header)</th>
+            <th>@Html.DisplayNameFor(m => m.AdvertPagedList.FirstOrDefault().Footage)</th>
+            <th>@Html.DisplayNameFor(m => m.AdvertPagedList.FirstOrDefault().Price)</th>
+            <th>@Html.DisplayNameFor(m => m.AdvertPagedList.FirstOrDefault().Address.Street)</th>
+            <th>@Html.DisplayNameFor(m => m.AdvertPagedList.FirstOrDefault().AdvertType)</th>
+            <th></th>
         </tr>
-    }
-</table>
+
+        @foreach (var item in pagedList)
+        {
+            <tr>
+                <td>@item.Header</td>
+                <td>@item.Footage</td>
+                <td>@item.Price</td>
+                <td>@item.Address.Street</td>
+                <td>@item.AdvertType</td>
+                <td>
+                    <div class="pull-right">
+                        <a href="@Url.Action("Details", "Home", routeValues: new { advertId = item.Id })" class="btn btn-default" data-modal="">
+                            <i class="glyphicon glyphicon-th-list"></i>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+Page @(pagedList.PageCount < pagedList.PageNumber ? 0 : pagedList.PageNumber) of @pagedList.PageCount
+@Html.PagedListPager(pagedList, page => Url.Action("List", "Home", routeValues: new { Model.CurrentFilter, page }))

@@ -1,46 +1,41 @@
 ﻿@model IEnumerable<Rental.WebUI.Models.Advert.AdvertViewModel>
 
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <strong>Advert list</strong>
-    </div>
-    <div class="table-responsive">
-        <table class="table table-hover">
+<div class="table-responsive">
+    <table class="table table-hover">
+        <tr>
+            <th>@Html.DisplayNameFor(x => x.Header)</th>
+            <th>@Html.DisplayNameFor(x => x.Footage)</th>
+            <th>@Html.DisplayNameFor(x => x.Price)</th>
+            <th>@Html.DisplayNameFor(x => x.Address.Street)</th>
+            <th>@Html.DisplayNameFor(x => x.AdvertType)</th>
+            <th>
+                <a href="@Url.Action("Create", "Advert", routeValues: new { userId = ViewBag.UserId })" class="btn btn-primary pull-right" data-modal="">
+                    <i class="glyphicon glyphicon-plus"></i>
+                </a>
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
             <tr>
-                <th>@Html.DisplayNameFor(x => x.Header)</th>
-                <th>@Html.DisplayNameFor(x => x.Footage)</th>
-                <th>@Html.DisplayNameFor(x => x.Price)</th>
-                <th>@Html.DisplayNameFor(x => x.Address.Street)</th>
-                <th>@Html.DisplayNameFor(x => x.AdvertType)</th>
-                <th>
-                    <a href="@Url.Action("Create", "Advert", routeValues: new {userId = ViewBag.UserId})" class="btn btn-primary pull-right" data-modal="">
-                        <i class="glyphicon glyphicon-plus"></i>
-                    </a>
-                </th>
+                <td>@item.Header</td>
+                <td>@item.Footage</td>
+                <td>@item.Price</td>
+                <td>@item.Address.Street</td>
+                <td>@item.AdvertType</td>
+                <td>
+                    <div class="pull-right">
+                        <a href="@Url.Action("Edit", "Advert", routeValues: new { advertId = item.Id })" class="btn btn-default" data-modal="">
+                            <i class="glyphicon glyphicon-pencil"></i>
+                        </a>
+                        <a href="@Url.Action("Delete", "Advert", routeValues: new { advertId = item.Id })" class="btn btn-danger" data-modal="">
+                            <i class="glyphicon glyphicon-trash"></i>
+                        </a>
+                    </div>
+                </td>
             </tr>
-        
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>@item.Header</td>
-                    <td>@item.Footage</td>
-                    <td>@item.Price</td>
-                    <td>@item.Address.Street</td>
-                    <td>@item.AdvertType</td>
-                    <td>
-                        <div class="pull-right">
-                            <a href="@Url.Action("Edit", "Advert", routeValues: new {advertId = item.Id})" class="btn btn-default" data-modal="">
-                                <i class="glyphicon glyphicon-pencil"></i>
-                            </a>
-                            <a href="@Url.Action("Delete", "Advert", routeValues: new {advertId = item.Id})" class="btn btn-danger" data-modal="">
-                                <i class="glyphicon glyphicon-trash"></i>
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-            }
-        </table>
-    </div>
+        }
+    </table>
 </div>
 
 @Scripts.Render("~/bundles/modalform")

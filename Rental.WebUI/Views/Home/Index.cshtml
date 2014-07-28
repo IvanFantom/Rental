@@ -1,6 +1,4 @@
-﻿@model Rental.WebUI.Models.Home.FilterViewModel
-
-@{
+﻿@{
     ViewBag.Title = "Home Page";
 }
 
@@ -26,9 +24,9 @@
     <div class="panel-body">
         @{ Html.RenderAction("Filter", "Home"); }
     </div>
-    <div id="replaceTarget" class="table-responsive">
-        @{ Html.RenderAction("List", "Home"); }
-    </div>
+</div>
+<div id="replaceTarget" class="table-responsive">
+    @{ Html.RenderAction("List", "Home"); }
 </div>
 
 <script src="~/Scripts/Home/index.js"></script>

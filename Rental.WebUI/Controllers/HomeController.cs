@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using PagedList;
 using Rental.Data;
 using Rental.Models.Entities;
 using Rental.Models.Enums;
@@ -16,9 +17,12 @@ namespace Rental.WebUI.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly int _itemsPerPage;
+
         public HomeController()
         {
             UnitOfWork = new UnitOfWork();
+            _itemsPerPage = 5;
         }
 
         public UnitOfWork UnitOfWork { get; private set; }
@@ -32,14 +36,14 @@ namespace Rental.WebUI.Controllers
 
         //
         // GET: /Home/List
-        public ActionResult List(FilterViewModel filter)
+        public ActionResult List(FilterViewModel filter, int? page)
         {
             Expression<Func<Advert, bool>> expression = x =>
                                                         filter.MinPrice < x.Price && x.Price < filter.MaxPrice &&
                                                         filter.MinFootage < x.Footage && x.Footage < filter.MaxFootage &&
                                                         filter.AdvertType != AdvertTypeViewModel.None ? ((int)x.Type == (int)filter.AdvertType) : true;
-                
-            var model = UnitOfWork
+
+            var list = UnitOfWork
                 .GetRepository<Advert>()
                 .Filter(expression)
                 .Select(x => new AdvertViewModel()
@@ -57,7 +61,14 @@ namespace Rental.WebUI.Controllers
                     District = x.Address.District,
                     Street = x.Address.Street
                 }
-            }).AsEnumerable();
+            }).ToList();
+
+            var pageNumber = page ?? 1;
+            var model = new ListViewModel()
+            {
+                AdvertPagedList = list.ToPagedList(pageNumber, _itemsPerPage),
+                CurrentFilter = filter
+            };
 
             return PartialView("_ListPartial", model);
         }

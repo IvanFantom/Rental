@@ -13,8 +13,8 @@ namespace Rental.Repositories
 
         public Repository(DbContext context)
         {
-            this._context = context;
-            this._dbSet = context.Set<TEntity>();
+            _context = context;
+            _dbSet = context.Set<TEntity>();
         }
         
         public virtual int Count

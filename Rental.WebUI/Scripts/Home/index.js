@@ -3,7 +3,7 @@
 
     $.ajaxSetup({ cache: false });
 
-    $("a[data-modal]").on("click", function (e) {
+    $('#replaceTarget').on('click', 'a[data-modal]', function (e) {
         $('#advertModalContent').load(this.href, function () {
             $('#advertModal').modal({
                 keyboard: true
@@ -12,7 +12,7 @@
         return false;
     });
 
-    $('form.form-filter').submit(function (e) {
+    $('form.form-filter').on('submit', function (e) {
         e.preventDefault();
         var data = $(this).serialize();
 
@@ -26,5 +26,12 @@
                 }
             }
         });
+    });
+
+    $('#replaceTarget').on('click','.pagination-container a', function (e) {
+        e.preventDefault();
+        if (this.href !== '') {
+            $('#replaceTarget').load(this.href);
+        }
     });
 });
