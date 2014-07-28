@@ -58,13 +58,9 @@
     <Compile Include="Mappings\AddressMap.cs" />
     <Compile Include="Mappings\AdvertMap.cs" />
     <Compile Include="Mappings\UserMap.cs" />
-    <Compile Include="Migrations\201407240823412_InitializeDb.cs" />
-    <Compile Include="Migrations\201407240823412_InitializeDb.Designer.cs">
-      <DependentUpon>201407240823412_InitializeDb.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201407271538457_InitializeDb1.cs" />
-    <Compile Include="Migrations\201407271538457_InitializeDb1.Designer.cs">
-      <DependentUpon>201407271538457_InitializeDb1.cs</DependentUpon>
+    <Compile Include="Migrations\201407280716562_InitializeDb.cs" />
+    <Compile Include="Migrations\201407280716562_InitializeDb.Designer.cs">
+      <DependentUpon>201407280716562_InitializeDb.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -90,11 +86,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201407240823412_InitializeDb.resx">
-      <DependentUpon>201407240823412_InitializeDb.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201407271538457_InitializeDb1.resx">
-      <DependentUpon>201407271538457_InitializeDb1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201407280716562_InitializeDb.resx">
+      <DependentUpon>201407280716562_InitializeDb.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

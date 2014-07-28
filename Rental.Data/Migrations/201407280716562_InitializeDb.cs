@@ -18,7 +18,7 @@ namespace Rental.Data.Migrations
                         Street = c.String(nullable: false, maxLength: 128),
                     })
                 .PrimaryKey(t => t.AdvertId)
-                .ForeignKey("dbo.Advert", t => t.AdvertId)
+                .ForeignKey("dbo.Advert", t => t.AdvertId, cascadeDelete: true)
                 .Index(t => t.AdvertId);
             
             CreateTable(

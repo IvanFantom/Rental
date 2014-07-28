@@ -1,54 +1,30 @@
 ﻿@model IEnumerable<Rental.WebUI.Models.Advert.AdvertViewModel>
 
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <strong>Advert list</strong>
-    </div>
-    <div class="panel-body">
-        <div class="row">
-            <div class="form-group col-sm-2">
-                <input type="text" class="form-control" placeholder="Min price" />
-                <input type="text" class="form-control" placeholder="Max price" />
-            </div>
-            <div class="form-group col-sm-2">
-                <input type="text" class="form-control" placeholder="Min footage" />
-                <input type="text" class="form-control" placeholder="Max footage" />
-            </div>
-            <div class="form-group col-sm-4">
-                <input type="text" class="form-control" placeholder="Type" />
-            </div>
-        </div>
-    </div>
-    <div class="table-responsive">
-        <table class="table table-hover">
-            <tr>
-                <th>@Html.DisplayNameFor(x => x.Header)</th>
-                <th>@Html.DisplayNameFor(x => x.Footage)</th>
-                <th>@Html.DisplayNameFor(x => x.Price)</th>
-                <th>@Html.DisplayNameFor(x => x.Address.Street)</th>
-                <th>@Html.DisplayNameFor(x => x.AdvertType)</th>
-                <th></th>
-            </tr>
+<table class="table table-hover">
+    <tr>
+        <th>@Html.DisplayNameFor(x => x.Header)</th>
+        <th>@Html.DisplayNameFor(x => x.Footage)</th>
+        <th>@Html.DisplayNameFor(x => x.Price)</th>
+        <th>@Html.DisplayNameFor(x => x.Address.Street)</th>
+        <th>@Html.DisplayNameFor(x => x.AdvertType)</th>
+        <th></th>
+    </tr>
 
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>@item.Header</td>
-                    <td>@item.Footage</td>
-                    <td>@item.Price</td>
-                    <td>@item.Address.Street</td>
-                    <td>@item.AdvertType</td>
-                    <td>
-                        <div class="pull-right">
-                            <a href="@Url.Action("Details", "Home", routeValues: new {advertId = item.Id})" class="btn btn-default" data-modal="">
-                                <i class="glyphicon glyphicon-th-list"></i>
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-            }
-        </table>
-    </div>
-</div>
-
-@Scripts.Render("~/bundles/modalform")
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Header</td>
+            <td>@item.Footage</td>
+            <td>@item.Price</td>
+            <td>@item.Address.Street</td>
+            <td>@item.AdvertType</td>
+            <td>
+                <div class="pull-right">
+                    <a href="@Url.Action("Details", "Home", routeValues: new { advertId = item.Id })" class="btn btn-default" data-modal="">
+                        <i class="glyphicon glyphicon-th-list"></i>
+                    </a>
+                </div>
+            </td>
+        </tr>
+    }
+</table>
