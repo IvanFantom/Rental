@@ -39,9 +39,9 @@ namespace Rental.WebUI.Controllers
         public ActionResult List(FilterViewModel filter, int? page)
         {
             Expression<Func<Advert, bool>> expression = x =>
-                                                        filter.MinPrice < x.Price && x.Price < filter.MaxPrice &&
-                                                        filter.MinFootage < x.Footage && x.Footage < filter.MaxFootage &&
-                                                        filter.AdvertType != AdvertTypeViewModel.None ? ((int)x.Type == (int)filter.AdvertType) : true;
+                                                        filter.MinPrice <= x.Price && x.Price <= filter.MaxPrice &&
+                                                        filter.MinFootage <= x.Footage && x.Footage <= filter.MaxFootage &&
+                                                        (filter.AdvertType == AdvertTypeViewModel.None || ((int)x.Type == (int)filter.AdvertType));
 
             var list = UnitOfWork
                 .GetRepository<Advert>()
@@ -77,15 +77,7 @@ namespace Rental.WebUI.Controllers
         // GET: /Home/Filter
         public ActionResult Filter()
         {
-            var model = new FilterViewModel()
-                {
-                    MinPrice = 0,
-                    MaxPrice = 1000,
-                    MinFootage = 0,
-                    MaxFootage = 800,
-                    AdvertType = AdvertTypeViewModel.None,
-                };
-            return PartialView("_FilterPartial", model);
+            return PartialView("_FilterPartial", new FilterViewModel());
         }
 
         //

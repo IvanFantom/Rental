@@ -14,21 +14,21 @@ namespace Rental.Data.Mappings
         public AddressMap()
         {
             // Table & Column Mappings
-            this.ToTable("Address");
-            this.Property(x => x.AdvertId).HasColumnName("AdvertId");
+            ToTable("Address");
+            Property(x => x.AdvertId).HasColumnName("AdvertId");
 
             // Primary Key
-            this.HasKey(x => x.AdvertId);
+            HasKey(x => x.AdvertId);
 
             // Properties
-            this.Property(x => x.AdvertId).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
-            this.Property(x => x.Country).HasMaxLength(64).IsRequired();
-            this.Property(x => x.City).HasMaxLength(64).IsRequired();
-            this.Property(x => x.District).HasMaxLength(128).IsRequired();
-            this.Property(x => x.Street).HasMaxLength(128).IsRequired();
+            Property(x => x.AdvertId).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+            Property(x => x.Country).HasMaxLength(64).IsRequired();
+            Property(x => x.City).HasMaxLength(64).IsRequired();
+            Property(x => x.District).HasMaxLength(128).IsRequired();
+            Property(x => x.Street).HasMaxLength(128).IsRequired();
 
             // Advert one-to-one Address
-            this.HasRequired(a => a.Advert)
+            HasRequired(a => a.Advert)
                 .WithRequiredDependent(a => a.Address)
                 .WillCascadeOnDelete(true);
         }

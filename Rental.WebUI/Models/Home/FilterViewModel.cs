@@ -9,6 +9,15 @@ namespace Rental.WebUI.Models.Home
 {
     public class FilterViewModel
     {
+        public FilterViewModel()
+        {
+            MinPrice = 0;
+            MaxPrice = 2000;
+            MinFootage = 0;
+            MaxFootage = 2000;
+            AdvertType = AdvertTypeViewModel.None;
+        }
+
         [DataType(DataType.Currency)]
         public decimal MinPrice { get; set; }
 

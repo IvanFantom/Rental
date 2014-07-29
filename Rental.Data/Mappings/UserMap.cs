@@ -14,16 +14,16 @@ namespace Rental.Data.Mappings
         public UserMap()
         {
             // Table & Column Mappings
-            this.ToTable("User");
-            this.Property(x => x.Id).HasColumnName("Id");
+            ToTable("User");
+            Property(x => x.Id).HasColumnName("Id");
 
             // Primary Key
-            this.HasKey(x => x.Id);
+            HasKey(x => x.Id);
 
             // Properties
-            this.Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-            this.Property(x => x.LastName).HasMaxLength(64).IsOptional();
-            this.Property(x => x.Email).HasMaxLength(128).IsOptional();
+            Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            Property(x => x.LastName).HasMaxLength(64).IsOptional();
+            Property(x => x.Email).HasMaxLength(128).IsOptional();
         }
     }
 }
