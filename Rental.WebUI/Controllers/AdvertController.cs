@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Rental.Data;
+using Rental.Interfaces;
 using Rental.Models.Entities;
 using Rental.WebUI.Models.Advert;
 
@@ -14,12 +15,12 @@ namespace Rental.WebUI.Controllers
     [Authorize]
     public class AdvertController : Controller
     {
-        public AdvertController()
-        {
-            UnitOfWork = new UnitOfWork();
-        }
+        private readonly IUnitOfWork _unitOfWork;
 
-        public UnitOfWork UnitOfWork { get; private set; }
+        public AdvertController(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
 
         //
         // GET: /Advert/List
@@ -35,8 +36,8 @@ namespace Rental.WebUI.Controllers
             var userId = User.Identity.GetUserId();
             ViewBag.UserId = userId;
 
-            var user = UnitOfWork.UserManager.FindById(userId);
-            var model = user.Adverts.Select(x => new AdvertViewModel()
+            var user = _unitOfWork.UserManager.FindById(userId);
+            var model = user.Adverts.Select(x => new AdvertViewModel
             {
                 Id = x.Id,
                 Header = x.Header,
@@ -44,7 +45,7 @@ namespace Rental.WebUI.Controllers
                 Footage = x.Footage,
                 Price = x.Price,
                 AdvertType = x.Type,
-                Address = new AddressViewModel()
+                Address = new AddressViewModel
                 {
                     Country = x.Address.Country,
                     City = x.Address.City,
@@ -60,7 +61,7 @@ namespace Rental.WebUI.Controllers
         // GET: /Advert/Create
         public ActionResult Create(string userId)
         {
-            var advert = new AdvertViewModel() {UserId = userId};
+            var advert = new AdvertViewModel {UserId = userId};
 
             return PartialView("_CreatePartial", advert);
         }
@@ -73,15 +74,15 @@ namespace Rental.WebUI.Controllers
         {
             if (!ModelState.IsValid) return PartialView("_CreatePartial", model);
 
-            var user = UnitOfWork.UserManager.FindById(model.UserId);
-            var address = new Address()
+            var user = _unitOfWork.UserManager.FindById(model.UserId);
+            var address = new Address
             {
                 Country = model.Address.Country,
                 City = model.Address.City,
                 District = model.Address.District,
                 Street = model.Address.Street
             };
-            var advert = new Advert()
+            var advert = new Advert
             {
                 Header = model.Header,
                 Content = model.Content,
@@ -91,8 +92,8 @@ namespace Rental.WebUI.Controllers
                 User = user,
                 Address = address
             };
-            UnitOfWork.GetRepository<Advert>().Create(advert);
-            UnitOfWork.Commit();
+            _unitOfWork.GetRepository<Advert>().Create(advert);
+            _unitOfWork.Commit();
 
             var url = Url.Action("List", "Advert");
             return Json(new {success = true, url = url});
@@ -102,8 +103,8 @@ namespace Rental.WebUI.Controllers
         // GET: /Advert/Edit
         public ActionResult Edit(long? advertId)
         {
-            var advert = UnitOfWork.GetRepository<Advert>().GetById(advertId);
-            var model = new AdvertViewModel()
+            var advert = _unitOfWork.GetRepository<Advert>().GetById(advertId);
+            var model = new AdvertViewModel
             {
                 Id = advert.Id,
                 Header = advert.Header,
@@ -112,7 +113,7 @@ namespace Rental.WebUI.Controllers
                 Price = advert.Price,
                 AdvertType = advert.Type,
                 UserId = advert.UserId,
-                Address = new AddressViewModel()
+                Address = new AddressViewModel
                 {
                     Country = advert.Address.Country,
                     City = advert.Address.City,
@@ -132,7 +133,7 @@ namespace Rental.WebUI.Controllers
         {
             if (!ModelState.IsValid) return PartialView("_EditPartial", model);
 
-            var address = new Address()
+            var address = new Address
             {
                 AdvertId = model.Id,
                 Country = model.Address.Country,
@@ -140,7 +141,7 @@ namespace Rental.WebUI.Controllers
                 District = model.Address.District,
                 Street = model.Address.Street
             };
-            var advert = new Advert()
+            var advert = new Advert
             {
                 Id = model.Id,
                 Header = model.Header,
@@ -150,9 +151,9 @@ namespace Rental.WebUI.Controllers
                 Type = model.AdvertType,
                 UserId = model.UserId,
             };
-            UnitOfWork.GetRepository<Advert>().Update(advert);
-            UnitOfWork.GetRepository<Address>().Update(address);
-            UnitOfWork.Commit();
+            _unitOfWork.GetRepository<Advert>().Update(advert);
+            _unitOfWork.GetRepository<Address>().Update(address);
+            _unitOfWork.Commit();
 
             var url = Url.Action("List", "Advert");
             return Json(new { success = true, url = url });
@@ -162,8 +163,8 @@ namespace Rental.WebUI.Controllers
         // GET: /Advert/Delete
         public ActionResult Delete(long? advertId)
         {
-            var advert = UnitOfWork.GetRepository<Advert>().GetById(advertId);
-            var model = new AdvertViewModel()
+            var advert = _unitOfWork.GetRepository<Advert>().GetById(advertId);
+            var model = new AdvertViewModel
             {
                 Id = advert.Id,
                 Header = advert.Header,
@@ -171,7 +172,7 @@ namespace Rental.WebUI.Controllers
                 Footage = advert.Footage,
                 Price = advert.Price,
                 AdvertType = advert.Type,
-                Address = new AddressViewModel()
+                Address = new AddressViewModel
                 {
                     Country = advert.Address.Country,
                     City = advert.Address.City,
@@ -189,8 +190,8 @@ namespace Rental.WebUI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(long advertId)
         {
-            UnitOfWork.GetRepository<Advert>().Delete(advertId);
-            UnitOfWork.Commit();
+            _unitOfWork.GetRepository<Advert>().Delete(advertId);
+            _unitOfWork.Commit();
 
             var url = Url.Action("List", "Advert");
             return Json(new { success = true, url = url });

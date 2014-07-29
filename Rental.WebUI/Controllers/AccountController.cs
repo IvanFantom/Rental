@@ -16,9 +16,12 @@ namespace Rental.WebUI.Controllers
     [Authorize]
     public class AccountController : Controller
     {
-        public AccountController()
+        private readonly IUnitOfWork _unitOfWork;
+
+        public AccountController(IUnitOfWork unitOfWork)
         {
-            UserManager = new UnitOfWork().UserManager;
+            _unitOfWork = unitOfWork;
+            UserManager = _unitOfWork.UserManager;
         }
 
         public UserManager<User> UserManager { get; private set; }

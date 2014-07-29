@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Rental.IoC;
 using Rental.WebUI.App_Start;
 
 namespace Rental.WebUI
@@ -15,6 +16,7 @@ namespace Rental.WebUI
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
+            DependencyResolver.SetResolver(new NinjectDependencyResolver());
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }

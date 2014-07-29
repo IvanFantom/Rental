@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using PagedList;
 using Rental.Data;
+using Rental.Interfaces;
 using Rental.Models.Entities;
 using Rental.Models.Enums;
 using Rental.WebUI.Models.Advert;
@@ -17,15 +18,14 @@ namespace Rental.WebUI.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IUnitOfWork _unitOfWork;
         private readonly int _itemsPerPage;
 
-        public HomeController()
+        public HomeController(IUnitOfWork unitOfWork)
         {
-            UnitOfWork = new UnitOfWork();
+            _unitOfWork = unitOfWork;
             _itemsPerPage = 5;
         }
-
-        public UnitOfWork UnitOfWork { get; private set; }
         
         //
         // GET: /Home/Index
@@ -43,18 +43,18 @@ namespace Rental.WebUI.Controllers
                                                         filter.MinFootage <= x.Footage && x.Footage <= filter.MaxFootage &&
                                                         (filter.AdvertType == AdvertTypeViewModel.None || ((int)x.Type == (int)filter.AdvertType));
 
-            var list = UnitOfWork
+            var list = _unitOfWork
                 .GetRepository<Advert>()
                 .Filter(expression)
-                .Select(x => new AdvertViewModel()
-            {
+                .Select(x => new AdvertViewModel
+                {
                 Id = x.Id,
                 Header = x.Header,
                 Content = x.Content,
                 Footage = x.Footage,
                 Price = x.Price,
                 AdvertType = x.Type,
-                Address = new AddressViewModel()
+                Address = new AddressViewModel
                 {
                     Country = x.Address.Country,
                     City = x.Address.City,
@@ -64,7 +64,7 @@ namespace Rental.WebUI.Controllers
             }).ToList();
 
             var pageNumber = page ?? 1;
-            var model = new ListViewModel()
+            var model = new ListViewModel
             {
                 AdvertPagedList = list.ToPagedList(pageNumber, _itemsPerPage),
                 CurrentFilter = filter
@@ -96,15 +96,15 @@ namespace Rental.WebUI.Controllers
         // GET: /Home/Details
         public ActionResult Details(long advertId)
         {
-            var advert = UnitOfWork.GetRepository<Advert>().GetById(advertId);
-            var model = new AdvertViewModel()
+            var advert = _unitOfWork.GetRepository<Advert>().GetById(advertId);
+            var model = new AdvertViewModel
             {
                 Header = advert.Header,
                 Content = advert.Content,
                 Footage = advert.Footage,
                 Price = advert.Price,
                 AdvertType = advert.Type,
-                Address = new AddressViewModel()
+                Address = new AddressViewModel
                 {
                     Country = advert.Address.Country,
                     City = advert.Address.City,

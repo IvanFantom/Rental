@@ -251,6 +251,10 @@
       <Project>{d34a453d-721a-4f31-9435-88c455f73517}</Project>
       <Name>Rental.Interfaces</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Rental.IoC\Rental.IoC.csproj">
+      <Project>{7036f0ba-576f-404c-ad02-aef0febd07e3}</Project>
+      <Name>Rental.IoC</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Rental.Models\Rental.Models.csproj">
       <Project>{136ebec6-6ad5-4e59-aa79-33538eacf45e}</Project>
       <Name>Rental.Models</Name>
