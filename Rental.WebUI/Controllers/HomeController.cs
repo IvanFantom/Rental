@@ -10,9 +10,9 @@ using Rental.Data;
 using Rental.Interfaces;
 using Rental.Models.Entities;
 using Rental.Models.Enums;
-using Rental.WebUI.Models.Advert;
-using Rental.WebUI.Models.Enums;
-using Rental.WebUI.Models.Home;
+using Rental.WebUI.ViewModels.Advert;
+using Rental.WebUI.ViewModels.Enums;
+using Rental.WebUI.ViewModels.Home;
 
 namespace Rental.WebUI.Controllers
 {

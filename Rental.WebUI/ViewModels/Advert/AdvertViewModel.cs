@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 using Rental.Models.Enums;
-using Rental.Models.Entities;
 
-namespace Rental.WebUI.Models.Advert
+namespace Rental.WebUI.ViewModels.Advert
 {
     public class AdvertViewModel
     {

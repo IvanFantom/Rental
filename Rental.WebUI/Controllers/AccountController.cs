@@ -9,7 +9,7 @@ using Microsoft.Owin.Security;
 using Rental.Data;
 using Rental.Interfaces;
 using Rental.Models.Entities;
-using Rental.WebUI.Models.Account;
+using Rental.WebUI.ViewModels.Account;
 
 namespace Rental.WebUI.Controllers
 {
@@ -74,7 +74,7 @@ namespace Rental.WebUI.Controllers
         {
             if (!ModelState.IsValid) return View(model);
 
-            var user = new User() { UserName = model.UserName };
+            var user = new User { UserName = model.UserName };
             var result = await UserManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
@@ -93,7 +93,7 @@ namespace Rental.WebUI.Controllers
         public ActionResult Summary()
         {
             var user = UserManager.FindById(User.Identity.GetUserId());
-            var model = new UserCabinetViewModel()
+            var model = new UserCabinetViewModel
             {
                 UserName = user.UserName
             };
@@ -111,7 +111,7 @@ namespace Rental.WebUI.Controllers
                 : "";
 
             var user = UserManager.FindById(User.Identity.GetUserId());
-            var model = new EditUserViewModel()
+            var model = new EditUserViewModel
             {
                 LastName = user.LastName,
                 Email = user.Email
@@ -126,20 +126,52 @@ namespace Rental.WebUI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> EditProfile(EditUserViewModel model)
         {
-            if (ModelState.IsValid)
-            {
-                var user = UserManager.FindById(User.Identity.GetUserId());
-                user.LastName = model.LastName;
-                user.Email = model.Email;
+            if (!ModelState.IsValid) return View(model);
 
-                var result = await UserManager.UpdateAsync(user);
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("EditProfile", new {Message = ManageMessageId.EditProfileSuccess});
-                }
-                
-                AddErrors(result);
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            user.LastName = model.LastName;
+            user.Email = model.Email;
+
+            var result = await UserManager.UpdateAsync(user);
+            if (result.Succeeded)
+            {
+                return RedirectToAction("EditProfile", new {Message = ManageMessageId.EditProfileSuccess});
             }
+                
+            AddErrors(result);
+
+            return View(model);
+        }
+
+        //
+        // GET: /Account/Security
+        public ActionResult Security(ManageMessageId? message)
+        {
+            ViewBag.StatusMessage =
+                message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
+                : message == ManageMessageId.Error ? "An error has occurred."
+                : "";
+
+            return View();
+        }
+
+        //
+        // POST: /Account/Sequrity
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Security(ChangePasswordViewModel model)
+        {
+            if (!ModelState.IsValid) return View(model);
+
+            var userId = User.Identity.GetUserId();
+            var result = await UserManager.ChangePasswordAsync(userId, model.OldPassword, model.NewPassword);
+
+            if (result.Succeeded)
+            {
+                return RedirectToAction("Security", new {message = ManageMessageId.ChangePasswordSuccess});
+            }
+
+            AddErrors(result);
 
             return View(model);
         }
@@ -181,7 +213,7 @@ namespace Rental.WebUI.Controllers
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
             var identity = await UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
-            AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, identity);
+            AuthenticationManager.SignIn(new AuthenticationProperties { IsPersistent = isPersistent }, identity);
         }
         private void AddErrors(IdentityResult result)
         {

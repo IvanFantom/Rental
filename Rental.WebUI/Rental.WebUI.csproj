@@ -196,16 +196,16 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Account\ChangePasswordViewModel.cs" />
-    <Compile Include="Models\Account\LoginViewModel.cs" />
-    <Compile Include="Models\Account\EditUserViewModel.cs" />
-    <Compile Include="Models\Account\RegisterViewModel.cs" />
-    <Compile Include="Models\Account\UserCabinetViewModel.cs" />
-    <Compile Include="Models\Advert\AddressViewModel.cs" />
-    <Compile Include="Models\Advert\AdvertViewModel.cs" />
-    <Compile Include="Models\Enums\AdvertTypeViewModel.cs" />
-    <Compile Include="Models\Home\FilterViewModel.cs" />
-    <Compile Include="Models\Home\ListViewModel.cs" />
+    <Compile Include="ViewModels\Account\ChangePasswordViewModel.cs" />
+    <Compile Include="ViewModels\Account\LoginViewModel.cs" />
+    <Compile Include="ViewModels\Account\EditUserViewModel.cs" />
+    <Compile Include="ViewModels\Account\RegisterViewModel.cs" />
+    <Compile Include="ViewModels\Account\UserCabinetViewModel.cs" />
+    <Compile Include="ViewModels\Advert\AddressViewModel.cs" />
+    <Compile Include="ViewModels\Advert\AdvertViewModel.cs" />
+    <Compile Include="ViewModels\Enums\AdvertTypeViewModel.cs" />
+    <Compile Include="ViewModels\Home\FilterViewModel.cs" />
+    <Compile Include="ViewModels\Home\ListViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -232,6 +232,7 @@
     <Content Include="Views\Home\_ListPartial.cshtml" />
     <Content Include="Views\Home\_DetailsPartial.cshtml" />
     <Content Include="Views\Home\_FilterPartial.cshtml" />
+    <Content Include="Views\Account\Security.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

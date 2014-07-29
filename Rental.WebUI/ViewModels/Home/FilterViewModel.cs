@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
-using Rental.WebUI.Models.Enums;
+﻿using System.ComponentModel.DataAnnotations;
+using Rental.WebUI.ViewModels.Enums;
 
-namespace Rental.WebUI.Models.Home
+namespace Rental.WebUI.ViewModels.Home
 {
     public class FilterViewModel
     {

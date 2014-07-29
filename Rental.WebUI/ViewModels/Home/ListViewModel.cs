@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using PagedList;
-using Rental.WebUI.Models.Advert;
+﻿using PagedList;
+using Rental.WebUI.ViewModels.Advert;
 
-namespace Rental.WebUI.Models.Home
+namespace Rental.WebUI.ViewModels.Home
 {
     public class ListViewModel
     {

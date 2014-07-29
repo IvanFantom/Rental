@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
@@ -44,11 +45,9 @@ namespace Rental.Repositories
                 query = query.Where(filter);
             }
 
-            foreach (var includeProperty in includeProperties.Split
-                (new char[] {','}, StringSplitOptions.RemoveEmptyEntries))
-            {
-                query = query.Include(includeProperty);
-            }
+            query = includeProperties
+                .Split(new char[] {','}, StringSplitOptions.RemoveEmptyEntries)
+                .Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
 
             return orderBy != null ? orderBy(query) : query;
         }
@@ -98,6 +97,11 @@ namespace Rental.Repositories
 
         public virtual void Delete(TEntity entity)
         {
+            if (entity == null)
+            {
+                throw new NoNullAllowedException();
+            }
+
             if (_context.Entry(entity).State == EntityState.Detached)
                 _dbSet.Attach(entity);
 
@@ -119,6 +123,11 @@ namespace Rental.Repositories
         
         public virtual void Update(TEntity entity)
         {
+            if (entity == null)
+            {
+                throw new NoNullAllowedException();
+            }
+
             _dbSet.Attach(entity);
             _context.Entry(entity).State = EntityState.Modified;
         }

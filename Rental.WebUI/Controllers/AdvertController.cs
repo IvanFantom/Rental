@@ -8,7 +8,7 @@ using Microsoft.AspNet.Identity;
 using Rental.Data;
 using Rental.Interfaces;
 using Rental.Models.Entities;
-using Rental.WebUI.Models.Advert;
+using Rental.WebUI.ViewModels.Advert;
 
 namespace Rental.WebUI.Controllers
 {
