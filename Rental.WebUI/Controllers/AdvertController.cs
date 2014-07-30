@@ -1,19 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
 using Microsoft.AspNet.Identity;
 using Rental.Common;
-using Rental.Data;
 using Rental.Domain.Models;
-using Rental.Interfaces;
-using Rental.Models.Entities;
-using Rental.Models.Enums;
 using Rental.WebUI.ViewModels.Advert;
-using Rental.WebUI.ViewModels.Enums;
 
 namespace Rental.WebUI.Controllers
 {

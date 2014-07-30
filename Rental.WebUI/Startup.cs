@@ -1,5 +1,4 @@
-﻿using Rental.WebUI;
-using Microsoft.Owin;
+﻿using Microsoft.Owin;
 using Owin;
 using Startup = Rental.WebUI.Startup;
 

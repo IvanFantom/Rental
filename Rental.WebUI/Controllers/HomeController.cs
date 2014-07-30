@@ -1,20 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
-using Microsoft.AspNet.Identity;
 using PagedList;
 using Rental.Common;
-using Rental.Data;
 using Rental.Domain.Models;
-using Rental.Interfaces;
-using Rental.Models.Entities;
-using Rental.Models.Enums;
 using Rental.WebUI.ViewModels.Advert;
-using Rental.WebUI.ViewModels.Enums;
 using Rental.WebUI.ViewModels.Home;
 
 namespace Rental.WebUI.Controllers
@@ -23,14 +13,11 @@ namespace Rental.WebUI.Controllers
     {
         private readonly IAdvertService _advertService;
 
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly int _itemsPerPage;
+        private int _itemsPerPage;
 
-        public HomeController(IUnitOfWork unitOfWork, IAdvertService advertService)
+        public HomeController(IAdvertService advertService)
         {
             _advertService = advertService;
-
-            _unitOfWork = unitOfWork;
             _itemsPerPage = 5;
         }
 

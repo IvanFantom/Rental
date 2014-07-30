@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using Rental.Common;
-using Rental.Data;
 using Rental.Domain.Models;
-using Rental.Interfaces;
-using Rental.Models.Entities;
-using Rental.Services;
 using Rental.WebUI.ViewModels.Account;
 
 namespace Rental.WebUI.Controllers

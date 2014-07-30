@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Rental.Models.Entities
+﻿namespace Rental.Models.Entities
 {
     public class Address
     {

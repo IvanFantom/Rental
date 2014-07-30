@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
+﻿using System.Data;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using Rental.Common;
-using Rental.Domain;
 using Rental.Domain.Models;
 using Rental.Interfaces;
 using Rental.Models.Entities;
-using Rental.Models.Enums;
 
 namespace Rental.Services
 {

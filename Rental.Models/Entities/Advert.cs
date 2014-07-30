@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Rental.Models.Enums;
+﻿using Rental.Models.Enums;
 
 namespace Rental.Models.Entities
 {
