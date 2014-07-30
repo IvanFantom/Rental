@@ -40,19 +40,28 @@ namespace Rental.Services
             _unitOfWork.Commit();
         }
 
-        public AdvertDomainModel GetAdvert(string userId)
+        public AdvertDomainModel GetAdvert(object userId)
         {
-            throw new NotImplementedException();
+            var advert = _unitOfWork.GetRepository<Advert>().GetById(userId);
+            var model = Mapper.Map<Advert, AdvertDomainModel>(advert);
+
+            return model;
         }
 
         public void UpdateAdvert(AdvertDomainModel model)
         {
-            throw new NotImplementedException();
+            var advert = Mapper.Map<AdvertDomainModel, Advert>(model);
+            advert.Address.AdvertId = advert.Id;
+            _unitOfWork.GetRepository<Advert>().Update(advert);
+            _unitOfWork.GetRepository<Address>().Update(advert.Address);
+
+            _unitOfWork.Commit();
         }
 
-        public void DeleteAdvert(long advertId)
+        public void DeleteAdvert(object advertId)
         {
-            throw new NotImplementedException();
+            _unitOfWork.GetRepository<Advert>().Delete(advertId);
+            _unitOfWork.Commit();
         }
     }
 }

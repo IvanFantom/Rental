@@ -13,10 +13,10 @@ namespace Rental.Common
         
         void CreateAdvert(string userId, AdvertDomainModel model);
         
-        AdvertDomainModel GetAdvert(string userId);
+        AdvertDomainModel GetAdvert(object userId);
         
         void UpdateAdvert(AdvertDomainModel model);
         
-        void DeleteAdvert(long advertId);
+        void DeleteAdvert(object advertId);
     }
 }
