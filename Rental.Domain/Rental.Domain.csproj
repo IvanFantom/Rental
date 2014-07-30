@@ -42,6 +42,7 @@
     <Compile Include="AdvertTypeDomainModel.cs" />
     <Compile Include="Models\AdvertDomainModel.cs" />
     <Compile Include="Models\AddressDomainModel.cs" />
+    <Compile Include="Models\FilterDomainModel.cs" />
     <Compile Include="Models\UserDomainModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

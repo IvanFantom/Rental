@@ -11,6 +11,7 @@ using Rental.Models.Enums;
 using Rental.WebUI.ViewModels.Account;
 using Rental.WebUI.ViewModels.Advert;
 using Rental.WebUI.ViewModels.Enums;
+using Rental.WebUI.ViewModels.Home;
 
 namespace Rental.ObjectMapper
 {
@@ -48,6 +49,11 @@ namespace Rental.ObjectMapper
             // BLL <-> WebUI
             Mapper.CreateMap<AddressDomainModel, AddressViewModel>();
             Mapper.CreateMap<AddressViewModel, AddressDomainModel>();
+            #endregion
+
+            #region ADVERT_FILTER
+            // BLL <-> WebUI
+            Mapper.CreateMap<FilterViewModel, FilterDomainModel>();
             #endregion
 
             #region ADVERT_TYPE

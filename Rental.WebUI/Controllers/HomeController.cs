@@ -4,9 +4,12 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Web;
 using System.Web.Mvc;
+using AutoMapper;
 using Microsoft.AspNet.Identity;
 using PagedList;
+using Rental.Common;
 using Rental.Data;
+using Rental.Domain.Models;
 using Rental.Interfaces;
 using Rental.Models.Entities;
 using Rental.Models.Enums;
@@ -18,15 +21,19 @@ namespace Rental.WebUI.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IAdvertService _advertService;
+
         private readonly IUnitOfWork _unitOfWork;
         private readonly int _itemsPerPage;
 
-        public HomeController(IUnitOfWork unitOfWork)
+        public HomeController(IUnitOfWork unitOfWork, IAdvertService advertService)
         {
+            _advertService = advertService;
+
             _unitOfWork = unitOfWork;
             _itemsPerPage = 5;
         }
-        
+
         //
         // GET: /Home/Index
         public ActionResult Index()
@@ -38,35 +45,15 @@ namespace Rental.WebUI.Controllers
         // GET: /Home/List
         public ActionResult List(FilterViewModel filter, int? page)
         {
-            Expression<Func<Advert, bool>> expression = x =>
-                                                        filter.MinPrice <= x.Price && x.Price <= filter.MaxPrice &&
-                                                        filter.MinFootage <= x.Footage && x.Footage <= filter.MaxFootage &&
-                                                        (filter.AdvertType == AdvertTypeViewModel.None || ((int)x.Type == (int)filter.AdvertType));
-
-            var list = _unitOfWork
-                .GetRepository<Advert>()
-                .Filter(expression)
-                .Select(x => new AdvertViewModel
-                {
-                Id = x.Id,
-                Header = x.Header,
-                Content = x.Content,
-                Footage = x.Footage,
-                Price = x.Price,
-                Type = (AdvertTypeViewModel)x.Type,
-                Address = new AddressViewModel
-                {
-                    Country = x.Address.Country,
-                    City = x.Address.City,
-                    District = x.Address.District,
-                    Street = x.Address.Street
-                }
-            }).ToList();
-
+            var filterModel = Mapper.Map<FilterViewModel, FilterDomainModel>(filter);
+            var adverts = _advertService
+                .GetAdverts(filterModel)
+                .Select(Mapper.Map<AdvertDomainModel, AdvertViewModel>);
+                
             var pageNumber = page ?? 1;
             var model = new ListViewModel
             {
-                AdvertPagedList = list.ToPagedList(pageNumber, _itemsPerPage),
+                AdvertPagedList = adverts.ToPagedList(pageNumber, _itemsPerPage),
                 CurrentFilter = filter
             };
 
@@ -96,22 +83,8 @@ namespace Rental.WebUI.Controllers
         // GET: /Home/Details
         public ActionResult Details(long advertId)
         {
-            var advert = _unitOfWork.GetRepository<Advert>().GetById(advertId);
-            var model = new AdvertViewModel
-            {
-                Header = advert.Header,
-                Content = advert.Content,
-                Footage = advert.Footage,
-                Price = advert.Price,
-                Type = (AdvertTypeViewModel)advert.Type,
-                Address = new AddressViewModel
-                {
-                    Country = advert.Address.Country,
-                    City = advert.Address.City,
-                    District = advert.Address.District,
-                    Street = advert.Address.Street
-                }
-            };
+            var advert = _advertService.GetAdvert(advertId);
+            var model = Mapper.Map<AdvertDomainModel, AdvertViewModel>(advert);
 
             return PartialView("_DetailsPartial", model);
         }
@@ -124,5 +97,5 @@ namespace Rental.WebUI.Controllers
 
             return View();
         }
-	}
+    }
 }

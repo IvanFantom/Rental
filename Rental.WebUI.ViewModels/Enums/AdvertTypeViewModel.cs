@@ -1,4 +1,6 @@
-﻿namespace Rental.WebUI.ViewModels.Enums
+﻿using System.ComponentModel;
+
+namespace Rental.WebUI.ViewModels.Enums
 {
     public enum AdvertTypeViewModel : int
     {

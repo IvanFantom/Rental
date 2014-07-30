@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNet.Identity;
 using Rental.Common;
 using Rental.Data;
+using Rental.Domain;
 using Rental.Domain.Models;
 using Rental.Interfaces;
 using Rental.Models.Entities;
@@ -25,9 +27,26 @@ namespace Rental.Services
         public IQueryable<AdvertDomainModel> GetAdvertsByUserId(string userId)
         {
             var user = _unitOfWork.UserManager.FindById(userId);
-            var adverts = user.Adverts.Select(Mapper.Map<Advert, AdvertDomainModel>).AsQueryable();
+            var adverts = user.Adverts
+                .Select(Mapper.Map<Advert, AdvertDomainModel>)
+                .AsQueryable();
 
             return adverts;
+        }
+
+        public IEnumerable<AdvertDomainModel> GetAdverts(FilterDomainModel filter)
+        {
+            Expression<Func<Advert, bool>> expression = x =>
+                                                        filter.MinPrice <= x.Price && x.Price <= filter.MaxPrice &&
+                                                        filter.MinFootage <= x.Footage && x.Footage <= filter.MaxFootage &&
+                                                        (filter.AdvertType == AdvertTypeDomainModel.None || ((int)x.Type == (int)filter.AdvertType));
+
+            var adverts = _unitOfWork.GetRepository<Advert>()
+                .Filter(expression)
+                .ToList();
+            var proxy = adverts.Select(Mapper.Map<Advert, AdvertDomainModel>);
+
+            return proxy;
         }
 
         public void CreateAdvert(string userId, AdvertDomainModel model)
