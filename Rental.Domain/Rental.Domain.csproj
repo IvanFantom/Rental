@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdvertTypeDomainModel.cs" />
     <Compile Include="Models\AdvertDomainModel.cs" />
     <Compile Include="Models\AddressDomainModel.cs" />
     <Compile Include="Models\UserDomainModel.cs" />
