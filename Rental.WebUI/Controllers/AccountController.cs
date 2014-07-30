@@ -25,11 +25,6 @@ namespace Rental.WebUI.Controllers
         public AccountController(IAccountService accountService)
         {
             _accountService = accountService;
-
-            Mapper.CreateMap<UserDomainModel, UserCabinetViewModel>();
-
-            Mapper.CreateMap<UserDomainModel, EditUserViewModel>();
-            Mapper.CreateMap<EditUserViewModel, UserDomainModel>();
         }
 
         //

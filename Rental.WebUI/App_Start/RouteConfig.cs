@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace Rental.WebUI.App_Start
+namespace Rental.WebUI
 {
     public class RouteConfig
     {

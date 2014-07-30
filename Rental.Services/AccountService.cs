@@ -23,18 +23,6 @@ namespace Rental.Services
         public AccountService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-
-            Mapper.CreateMap<User, UserDomainModel>();
-            Mapper.CreateMap<UserDomainModel, User>();
-
-            Mapper.CreateMap<Advert, AdvertDomainModel>();
-            Mapper.CreateMap<AdvertDomainModel, Advert>();
-
-            Mapper.CreateMap<Address, AddressDomainModel>();
-            Mapper.CreateMap<AddressDomainModel, Address>();
-
-            Mapper.CreateMap<AdvertType, AdvertTypeDomainModel>();
-            Mapper.CreateMap<AdvertTypeDomainModel, AdvertType>();
         }
 
         public async Task<UserDomainModel> LoginAsync(string userName, string password, bool isPersistent, IAuthenticationManager authenticationManager)

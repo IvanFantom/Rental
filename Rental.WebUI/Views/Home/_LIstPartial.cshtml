@@ -10,7 +10,7 @@
             <th>@Html.DisplayNameFor(m => m.AdvertPagedList.FirstOrDefault().Price)</th>
             <th>@Html.DisplayNameFor(m => m.AdvertPagedList.FirstOrDefault().Footage)</th>
             <th>@Html.DisplayNameFor(m => m.AdvertPagedList.FirstOrDefault().Address.Street)</th>
-            <th>@Html.DisplayNameFor(m => m.AdvertPagedList.FirstOrDefault().AdvertType)</th>
+            <th>@Html.DisplayNameFor(m => m.AdvertPagedList.FirstOrDefault().Type)</th>
             <th></th>
         </tr>
 
@@ -21,7 +21,7 @@
                 <td>@item.Price</td>
                 <td>@item.Footage</td>
                 <td>@item.Address.Street</td>
-                <td>@item.AdvertType</td>
+                <td>@item.Type</td>
                 <td>
                     <div class="pull-right">
                         <a href="@Url.Action("Details", "Home", routeValues: new { advertId = item.Id })" class="btn btn-default" data-modal="">

@@ -7,7 +7,7 @@
             <th>@Html.DisplayNameFor(x => x.Footage)</th>
             <th>@Html.DisplayNameFor(x => x.Price)</th>
             <th>@Html.DisplayNameFor(x => x.Address.Street)</th>
-            <th>@Html.DisplayNameFor(x => x.AdvertType)</th>
+            <th>@Html.DisplayNameFor(x => x.Type)</th>
             <th>
                 <a href="@Url.Action("Create", "Advert", routeValues: new { userId = ViewBag.UserId })" class="btn btn-primary pull-right" data-modal="">
                     <i class="glyphicon glyphicon-plus"></i>
@@ -22,7 +22,7 @@
                 <td>@item.Footage</td>
                 <td>@item.Price</td>
                 <td>@item.Address.Street</td>
-                <td>@item.AdvertType</td>
+                <td>@item.Type</td>
                 <td>
                     <div class="pull-right">
                         <a href="@Url.Action("Edit", "Advert", routeValues: new { advertId = item.Id })" class="btn btn-default" data-modal="">

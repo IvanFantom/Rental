@@ -26,6 +26,7 @@ namespace Rental.IoC
         {
             _kernel.Bind<IUnitOfWork>().To<UnitOfWork>();
             _kernel.Bind<IAccountService>().To<AccountService>();
+            _kernel.Bind<IAdvertService>().To<AdvertService>();
         }
 
         public object GetService(Type serviceType)

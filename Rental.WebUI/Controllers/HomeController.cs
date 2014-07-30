@@ -53,7 +53,7 @@ namespace Rental.WebUI.Controllers
                 Content = x.Content,
                 Footage = x.Footage,
                 Price = x.Price,
-                AdvertType = x.Type,
+                Type = (AdvertTypeViewModel)x.Type,
                 Address = new AddressViewModel
                 {
                     Country = x.Address.Country,
@@ -103,7 +103,7 @@ namespace Rental.WebUI.Controllers
                 Content = advert.Content,
                 Footage = advert.Footage,
                 Price = advert.Price,
-                AdvertType = advert.Type,
+                Type = (AdvertTypeViewModel)advert.Type,
                 Address = new AddressViewModel
                 {
                     Country = advert.Address.Country,

@@ -1,6 +1,6 @@
 ﻿using System.Web.Optimization;
 
-namespace Rental.WebUI.App_Start
+namespace Rental.WebUI
 {
     public class BundleConfig
     {
