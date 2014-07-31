@@ -30,8 +30,13 @@
 
     $('#replaceTarget').on('click','.pagination-container a', function (e) {
         e.preventDefault();
+
+        var $form = $('form.form-filter');
+        var data = $form.serialize();
+        data['page'] = $(this).val();
+
         if (this.href !== '') {
-            $('#replaceTarget').load(this.href);
+            $('#replaceTarget').load(this.href, data);
         }
     });
 });

@@ -43,7 +43,7 @@ namespace Rental.WebUI.Controllers
                 AdvertPagedList = adverts.ToPagedList(pageNumber, _itemsPerPage),
                 CurrentFilter = filter
             };
-
+            
             return PartialView("_ListPartial", model);
         }
 
