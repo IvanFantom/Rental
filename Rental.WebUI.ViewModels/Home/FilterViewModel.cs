@@ -16,16 +16,20 @@ namespace Rental.WebUI.ViewModels.Home
         }
 
         [DataType(DataType.Currency)]
+        [Range(0,20000,ErrorMessage = "it should be in range is 0..{2}")]
         public decimal MinPrice { get; set; }
 
         [DataType(DataType.Currency)]
+        [Range(0, 20000, ErrorMessage = "it should be in range is 0..{2}")]
         [GreaterThanOrEqualTo("MinPrice", ErrorMessage = "MinPrice should be <= MaxPrice")]
         public decimal MaxPrice { get; set; }
 
         [RegularExpression("[0-9]{1,}", ErrorMessage = "it should be positive integer")]
+        [Range(0, 20000, ErrorMessage = "it should be in range is 0..{2}")]
         public int MinFootage { get; set; }
 
         [RegularExpression("[0-9]{1,}", ErrorMessage = "it should be positive integer")]
+        [Range(0, 20000, ErrorMessage = "it should be in range is 0..{2}")]
         [GreaterThanOrEqualTo("MinFootage", ErrorMessage = "MinFootage <= MaxFootage")]
         public int MaxFootage { get; set; }
 

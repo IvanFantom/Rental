@@ -1,4 +1,4 @@
-﻿$(function () {
+﻿(function ($) {
     'use strict';
 
     $.ajaxSetup({ cache: false });
@@ -12,26 +12,30 @@
         return false;
     });
 
-    $('form.form-filter').on('submit', function (e) {
-        e.preventDefault();
-        var data = $(this).serialize();
+    //$('form.form-filter').on('submit', function (e) {
+    //    e.preventDefault();
+    //    if (!$(this).valid()) {
+    //        return false;
+    //    }
 
-        $.ajax({
-            url: this.action,
-            type: this.method,
-            data: data,
-            success: function (result) {
-                if (result.success) {
-                    $('#replaceTarget').load(result.url);   // Load data from the server and place the returned HTML into the matched element
-                }
-            }
-        });
-    });
+    //    var data = $(this).serialize();
 
-    $('#replaceTarget').on('click','.pagination-container a', function (e) {
+    //    $.ajax({
+    //        url: this.action,
+    //        type: this.method,
+    //        data: data,
+    //        success: function (result) {
+    //            if (result.success) {
+    //                $('#replaceTarget').load(result.url); // Load data from the server and place the returned HTML into the matched element
+    //            }
+    //        }
+    //    });
+    //});
+
+    $('#replaceTarget').on('click', '.pagination-container a', function (e) {
         e.preventDefault();
         if (this.href !== '') {
             $('#replaceTarget').load(this.href);
         }
     });
-});
+})(jQuery);

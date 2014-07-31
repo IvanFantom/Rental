@@ -1,6 +1,6 @@
 ﻿@model Rental.WebUI.ViewModels.Home.FilterViewModel
 
-@using (Html.BeginForm("Filter", "Home", FormMethod.Post, htmlAttributes: new { @class = "form-filter" }))
+@using (Ajax.BeginForm("Filter", "Home", ajaxOptions: new AjaxOptions() { InsertionMode = InsertionMode.ReplaceWith, UpdateTargetId = "form0" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -30,4 +30,8 @@
             <i class="glyphicon glyphicon-filter"></i>
         </button>
     </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
 }
