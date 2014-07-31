@@ -85,6 +85,11 @@ namespace Rental.Repositories
         
         public virtual TEntity Create(TEntity entity)
         {
+            if (entity == null)
+            {
+                throw new NoNullAllowedException();
+            }
+
             var newEntity = _dbSet.Add(entity);
             return newEntity;
         }
@@ -92,6 +97,12 @@ namespace Rental.Repositories
         public virtual void Delete(object id)
         {
             var entity = _dbSet.Find(id);
+            
+            if (entity == null)
+            {
+                return;
+            }
+
             Delete(entity);
         }
 
@@ -118,7 +129,7 @@ namespace Rental.Repositories
                     _dbSet.Attach(entity);
                 }
                 _dbSet.Remove(entity);
-            }
+            }            
         }
         
         public virtual void Update(TEntity entity)

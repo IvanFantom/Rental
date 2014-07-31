@@ -62,6 +62,10 @@
     <Compile Include="Migrations\201407280716562_InitializeDb.Designer.cs">
       <DependentUpon>201407280716562_InitializeDb.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201407312120050_addedFirstNameColumnToUserTable.cs" />
+    <Compile Include="Migrations\201407312120050_addedFirstNameColumnToUserTable.Designer.cs">
+      <DependentUpon>201407312120050_addedFirstNameColumnToUserTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RentalDbInitializer.cs" />
@@ -88,6 +92,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201407280716562_InitializeDb.resx">
       <DependentUpon>201407280716562_InitializeDb.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407312120050_addedFirstNameColumnToUserTable.resx">
+      <DependentUpon>201407312120050_addedFirstNameColumnToUserTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
