@@ -1,4 +1,4 @@
-﻿(function ($) {
+﻿$(function () {
     'use strict';
 
     $.ajaxSetup({ cache: false });
@@ -12,30 +12,26 @@
         return false;
     });
 
-    //$('form.form-filter').on('submit', function (e) {
-    //    e.preventDefault();
-    //    if (!$(this).valid()) {
-    //        return false;
-    //    }
+    $('form.form-filter').on('submit', function (e) {
+        e.preventDefault();
+        var data = $(this).serialize();
 
-    //    var data = $(this).serialize();
+        $.ajax({
+            url: this.action,
+            type: this.method,
+            data: data,
+            success: function (result) {
+                if (result.success) {
+                    $('#replaceTarget').load(result.url);   // Load data from the server and place the returned HTML into the matched element
+                }
+            }
+        });
+    });
 
-    //    $.ajax({
-    //        url: this.action,
-    //        type: this.method,
-    //        data: data,
-    //        success: function (result) {
-    //            if (result.success) {
-    //                $('#replaceTarget').load(result.url); // Load data from the server and place the returned HTML into the matched element
-    //            }
-    //        }
-    //    });
-    //});
-
-    $('#replaceTarget').on('click', '.pagination-container a', function (e) {
+    $('#replaceTarget').on('click','.pagination-container a', function (e) {
         e.preventDefault();
         if (this.href !== '') {
             $('#replaceTarget').load(this.href);
         }
     });
-})(jQuery);
+});
