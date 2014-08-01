@@ -25,11 +25,27 @@
         <strong>Advert list</strong>
     </div>
     <div class="panel-body">
+        <div class="row">
+            <div class="col-md-3">
+                @{ Html.RenderAction("Filter", "Home"); }
+            </div>
+            <div id="replaceTarget" class="col-md-9">
+                @{ Html.RenderAction("List", "Home"); }
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<div class="panel panel-default">
+    <div class="panel-heading">
+        <strong>Advert list</strong>
+    </div>
+    <div class="panel-body">
         @{ Html.RenderAction("Filter", "Home"); }
     </div>
 </div>
 <div id="replaceTarget" class="table-responsive">
     @{ Html.RenderAction("List", "Home"); }
-</div>
+</div>*@
 
 <script src="~/Scripts/Home/index.js"></script>
