@@ -15,18 +15,20 @@ namespace Rental.WebUI.ViewModels.Home
             AdvertType = AdvertTypeViewModel.None;
         }
 
-        [DataType(DataType.Currency)]
+        [DataType(DataType.Currency, ErrorMessage = "{0} has wrong format")]
+        [Range(typeof(decimal), "0", "20000", ErrorMessage = "{0} is out of range")]
         public decimal MinPrice { get; set; }
 
-        [DataType(DataType.Currency)]
+        [DataType(DataType.Currency, ErrorMessage = "{0} has wrong format")]
+        [Range(typeof(decimal), "0", "20000", ErrorMessage = "{0} is out of range")]
         [GreaterThanOrEqualTo("MinPrice", ErrorMessage = "MinPrice should be <= MaxPrice")]
         public decimal MaxPrice { get; set; }
 
-        [RegularExpression("[0-9]{1,}", ErrorMessage = "it should be positive integer")]
+        [Range(0, 20000, ErrorMessage = "{0} is out of range")]
         public int MinFootage { get; set; }
 
-        [RegularExpression("[0-9]{1,}", ErrorMessage = "it should be positive integer")]
-        [GreaterThanOrEqualTo("MinFootage", ErrorMessage = "MinFootage <= MaxFootage")]
+        [Range(0, 20000, ErrorMessage = "{0} is out of range")]
+        [GreaterThanOrEqualTo("MinFootage", ErrorMessage = "MinFootage should be <= MaxFootage")]
         public int MaxFootage { get; set; }
 
         public AdvertTypeViewModel AdvertType { get; set; }
