@@ -10,8 +10,8 @@
         public bool IsReserved { get; set; }
 
         public string UserId { get; set; }
-        public virtual UserDomainModel User { get; set; }
-        public virtual AdvertTypeDomainModel Type { get; set; }
-        public virtual AddressDomainModel Address { get; set; }
+        public UserDomainModel User { get; set; }
+        public AdvertTypeDomainModel Type { get; set; }
+        public AddressDomainModel Address { get; set; }
     }
 }

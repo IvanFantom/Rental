@@ -67,20 +67,6 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Rental.Domain\Rental.Domain.csproj">
-      <Project>{6ccc89a6-361e-4e35-999e-e8351fb2ee35}</Project>
-      <Name>Rental.Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Rental.Models\Rental.Models.csproj">
-      <Project>{136ebec6-6ad5-4e59-aa79-33538eacf45e}</Project>
-      <Name>Rental.Models</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Rental.WebUI.ViewModels\Rental.WebUI.ViewModels.csproj">
-      <Project>{6d3f8ccf-cf58-4103-82a5-8162c95c079d}</Project>
-      <Name>Rental.WebUI.ViewModels</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

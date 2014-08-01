@@ -8,6 +8,6 @@
         public string Street { get; set; }
 
         public long AdvertId { get; set; }
-        public virtual AdvertDomainModel Advert { get; set; }
+        public AdvertDomainModel Advert { get; set; }
     }
 }

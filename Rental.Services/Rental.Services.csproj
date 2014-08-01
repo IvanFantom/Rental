@@ -94,10 +94,6 @@
       <Project>{a52743da-fd94-49c5-a61a-355805eeb12e}</Project>
       <Name>Rental.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Rental.Data\Rental.Data.csproj">
-      <Project>{279bf9b2-bb44-422f-bfde-2c8daa6ccc87}</Project>
-      <Name>Rental.Data</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Rental.Domain\Rental.Domain.csproj">
       <Project>{6ccc89a6-361e-4e35-999e-e8351fb2ee35}</Project>
       <Name>Rental.Domain</Name>

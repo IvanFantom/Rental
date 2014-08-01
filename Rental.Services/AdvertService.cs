@@ -24,6 +24,12 @@ namespace Rental.Services
         public IQueryable<AdvertDomainModel> GetAdvertsByUserId(string userId)
         {
             var user = _unitOfWork.UserManager.FindById(userId);
+            
+            if (user == null)
+            {
+                return null;
+            }
+
             var adverts = user.Adverts
                 .Select(Mapper.Map<Advert, AdvertDomainModel>)
                 .AsQueryable();
@@ -59,6 +65,12 @@ namespace Rental.Services
         public AdvertDomainModel GetAdvert(object userId)
         {
             var advert = _unitOfWork.GetRepository<Advert>().GetById(userId);
+
+            if (advert == null)
+            {
+                return null;
+            }
+
             var model = Mapper.Map<Advert, AdvertDomainModel>(advert);
 
             return model;
