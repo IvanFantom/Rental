@@ -12,7 +12,7 @@
         return false;
     });
 
-    $('form.form-filter').on('submit', function (e) {
+    $('#advertFilterForm').on('submit', 'form.form-filter', function (e) {
         e.preventDefault();
         var data = $(this).serialize();
 
@@ -28,7 +28,7 @@
         });
     });
 
-    $('#replaceTarget').on('click','.pagination-container a', function (e) {
+    $('#replaceTarget').on('click', '.pagination-container a', function (e) {
         e.preventDefault();
 
         var $form = $('form.form-filter');

@@ -38,11 +38,7 @@ namespace Rental.WebUI.Controllers
                 .Select(Mapper.Map<AdvertDomainModel, AdvertViewModel>);
                 
             var pageNumber = page ?? 1;
-            var model = new ListViewModel
-            {
-                AdvertPagedList = adverts.ToPagedList(pageNumber, _itemsPerPage),
-                CurrentFilter = filter
-            };
+            var model = adverts.ToPagedList(pageNumber, _itemsPerPage);              
             
             return PartialView("_ListPartial", model);
         }

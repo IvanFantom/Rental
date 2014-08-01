@@ -222,7 +222,6 @@
     <Compile Include="ViewModels\Advert\AdvertViewModel.cs" />
     <Compile Include="ViewModels\Enums\AdvertTypeViewModel.cs" />
     <Compile Include="ViewModels\Home\FilterViewModel.cs" />
-    <Compile Include="ViewModels\Home\ListViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

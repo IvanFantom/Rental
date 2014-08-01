@@ -1,20 +1,17 @@
-﻿@model Rental.WebUI.ViewModels.Home.ListViewModel
+﻿@model PagedList.IPagedList<Rental.WebUI.ViewModels.Advert.AdvertViewModel>
 
-@{
-    var pagedList = Model.AdvertPagedList;
-}
 <div class="table-responsive">
     <table class="table table-hover table-condensed">
         <tr>
-            <th>@Html.DisplayNameFor(m => m.AdvertPagedList.FirstOrDefault().Header)</th>
-            <th>@Html.DisplayNameFor(m => m.AdvertPagedList.FirstOrDefault().Price)</th>
-            <th>@Html.DisplayNameFor(m => m.AdvertPagedList.FirstOrDefault().Footage)</th>
-            <th>@Html.DisplayNameFor(m => m.AdvertPagedList.FirstOrDefault().Address.Street)</th>
-            <th>@Html.DisplayNameFor(m => m.AdvertPagedList.FirstOrDefault().Type)</th>
+            <th>@Html.DisplayNameFor(m => m.SingleOrDefault().Header)</th>
+            <th>@Html.DisplayNameFor(m => m.FirstOrDefault().Price)</th>
+            <th>@Html.DisplayNameFor(m => m.FirstOrDefault().Footage)</th>
+            <th>@Html.DisplayNameFor(m => m.FirstOrDefault().Address.Street)</th>
+            <th>@Html.DisplayNameFor(m => m.FirstOrDefault().Type)</th>
             <th></th>
         </tr>
 
-        @foreach (var item in pagedList)
+        @foreach (var item in Model)
         {
             <tr>
                 <td>@item.Header</td>
@@ -34,5 +31,5 @@
     </table>
 </div>
 
-Page @(pagedList.PageCount < pagedList.PageNumber ? 0 : pagedList.PageNumber) of @pagedList.PageCount
-@Html.PagedListPager(pagedList, page => Url.Action("List", "Home", routeValues: new { Model.CurrentFilter, page }))
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("List", "Home", routeValues: new { page }))
