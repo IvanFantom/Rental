@@ -6,6 +6,7 @@
             <th>@Html.DisplayNameFor(m => m.SingleOrDefault().Header)</th>
             <th>@Html.DisplayNameFor(m => m.FirstOrDefault().Price)</th>
             <th>@Html.DisplayNameFor(m => m.FirstOrDefault().Footage)</th>
+            <th>@Html.DisplayNameFor(m => m.FirstOrDefault().Address.District)</th>
             <th>@Html.DisplayNameFor(m => m.FirstOrDefault().Address.Street)</th>
             <th>@Html.DisplayNameFor(m => m.FirstOrDefault().Type)</th>
             <th></th>
@@ -17,6 +18,7 @@
                 <td>@item.Header</td>
                 <td>@item.Price</td>
                 <td>@item.Footage</td>
+                <td>@item.Address.District</td>
                 <td>@item.Address.Street</td>
                 <td>@item.Type</td>
                 <td>

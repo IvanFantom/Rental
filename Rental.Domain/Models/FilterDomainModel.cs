@@ -18,6 +18,8 @@ namespace Rental.Domain.Models
         [Range(0, 20000, ErrorMessage = "{0} is out of range")]
         [GreaterThanOrEqualTo("MinFootage", ErrorMessage = "MinFootage should be <= MaxFootage")]
         public int MaxFootage { get; set; }
+
+        public string District { get; set; }
         
         public AdvertTypeDomainModel AdvertType { get; set; }
     }

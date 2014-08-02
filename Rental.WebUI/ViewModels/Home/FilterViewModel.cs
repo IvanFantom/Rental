@@ -37,6 +37,9 @@ namespace Rental.WebUI.ViewModels.Home
         [GreaterThanOrEqualTo("MinFootage", ErrorMessage = "{0} should be greater than or equal to {1}")]
         public int MaxFootage { get; set; }
 
+        [Display(Name = "District")]
+        public string District { get; set; }
+
         [Display(Name = "Type")]
         public AdvertTypeViewModel AdvertType { get; set; }
     }

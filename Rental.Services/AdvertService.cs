@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
 using AutoMapper;
@@ -40,9 +41,10 @@ namespace Rental.Services
         public IEnumerable<AdvertDomainModel> GetAdverts(FilterDomainModel filter)
         {
             Expression<Func<Advert, bool>> expression = x =>
-                                                        filter.MinPrice <= x.Price && x.Price <= filter.MaxPrice &&
-                                                        filter.MinFootage <= x.Footage && x.Footage <= filter.MaxFootage &&
-                                                        (filter.AdvertType == AdvertTypeDomainModel.None || ((int)x.Type == (int)filter.AdvertType));
+                filter.MinPrice <= x.Price && x.Price <= filter.MaxPrice &&
+                filter.MinFootage <= x.Footage && x.Footage <= filter.MaxFootage &&
+                (filter.AdvertType == AdvertTypeDomainModel.None || ((int) x.Type == (int) filter.AdvertType)) &&
+                (string.IsNullOrEmpty(filter.District) || x.Address.District.Contains(filter.District));
 
             var adverts = _unitOfWork.GetRepository<Advert>()
                 .Filter(expression)
