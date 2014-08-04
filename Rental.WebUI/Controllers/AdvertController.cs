@@ -18,15 +18,11 @@ namespace Rental.WebUI.Controllers
             _advertService = advertService;
         }
 
-        //
-        // GET: /Advert/List
         public ActionResult Index()
         {
             return View();
         }
-        
-        //
-        // GET: /Advert/Index
+
         public ActionResult List()
         {
             var userId = User.Identity.GetUserId();
@@ -38,8 +34,17 @@ namespace Rental.WebUI.Controllers
             return PartialView("_ListPartial", model);
         }
 
-        //
-        // GET: /Advert/Create
+        public ActionResult ReservedList()
+        {
+            var userId = User.Identity.GetUserId();
+            ViewBag.UserId = userId;
+
+            var query = _advertService.GetReservedAdvertsByUserId(userId);
+            var model = query.Select(Mapper.Map<AdvertDomainModel, AdvertViewModel>);
+
+            return PartialView("_ReservedListPartial", model);
+        }
+
         public ActionResult Create(string userId)
         {
             var advert = new AdvertViewModel {UserId = userId};
@@ -47,8 +52,6 @@ namespace Rental.WebUI.Controllers
             return PartialView("_CreatePartial", advert);
         }
 
-        //
-        // POST: /Advert/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(AdvertViewModel model)
@@ -59,11 +62,9 @@ namespace Rental.WebUI.Controllers
             _advertService.CreateAdvert(model.UserId, advert);
 
             var url = Url.Action("List", "Advert");
-            return Json(new {success = true, url = url});
+            return Json(new { success = true, url = url, replaceTarget = "#advertReplaceTarget" });
         }
 
-        //
-        // GET: /Advert/Edit
         public ActionResult Edit(long? advertId)
         {
             var advert = _advertService.GetAdvert(advertId);
@@ -72,8 +73,6 @@ namespace Rental.WebUI.Controllers
             return PartialView("_EditPartial", model);
         }
 
-        //
-        // POST: /Advert/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(AdvertViewModel model)
@@ -84,11 +83,9 @@ namespace Rental.WebUI.Controllers
             _advertService.UpdateAdvert(advert);
 
             var url = Url.Action("List", "Advert");
-            return Json(new { success = true, url = url });
+            return Json(new { success = true, url = url, replaceTarget = "#advertReplaceTarget" });
         }
 
-        //
-        // GET: /Advert/Delete
         public ActionResult Delete(long? advertId)
         {
             var advert = _advertService.GetAdvert(advertId);
@@ -97,8 +94,6 @@ namespace Rental.WebUI.Controllers
             return PartialView("_DeletePartial", model);
         }
 
-        //
-        // POST: /Advert/Delete
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(long advertId)
@@ -106,7 +101,33 @@ namespace Rental.WebUI.Controllers
             _advertService.DeleteAdvert(advertId);
 
             var url = Url.Action("List", "Advert");
-            return Json(new { success = true, url = url });
+            return Json(new { success = true, url = url, replaceTarget = "#advertReplaceTarget" });
+        }
+
+        public ActionResult Details(long? advertId)
+        {
+            var advert = _advertService.GetAdvert(advertId);
+            var model = Mapper.Map<AdvertDomainModel, AdvertViewModel>(advert);
+
+            return PartialView("_DetailsPartial", model);
+        }
+
+        public ActionResult Unreserve(long? advertId)
+        {
+            var advert = _advertService.GetAdvert(advertId);
+            var model = Mapper.Map<AdvertDomainModel, AdvertViewModel>(advert);
+
+            return PartialView("_UnreservePartial", model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Unreserve(long advertId)
+        {
+            _advertService.UnreserveAdvert(advertId);
+            
+            var url = Url.Action("ReservedList", "Advert");
+            return Json(new { success = true, url = url, replaceTarget = "#reservedAdvertsReplaceTarget" });
         }
 	}
 }

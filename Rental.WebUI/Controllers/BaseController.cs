@@ -42,7 +42,7 @@ namespace Rental.WebUI.Controllers
             TempData[Alert.TempDataKey] = alerts;
         }
 
-        public ActionResult Show()
+        public ActionResult ShowAlert()
         {
             return PartialView("_AlertsPartial");
         }

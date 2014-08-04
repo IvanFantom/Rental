@@ -24,15 +24,11 @@ namespace Rental.WebUI.Controllers
             _itemsPerPage = 5;
         }
 
-        //
-        // GET: /Home/Index
         public ActionResult Index()
         {
             return View();
         }
 
-        //
-        // GET: /Home/List
         public ActionResult List(FilterViewModel filter, int? page)
         {
             var filterModel = Mapper.Map<FilterViewModel, FilterDomainModel>(filter);
@@ -46,15 +42,11 @@ namespace Rental.WebUI.Controllers
             return PartialView("_ListPartial", model);
         }
 
-        //
-        // GET: /Home/Filter
         public ActionResult Filter()
         {
             return PartialView("_FilterPartial", new FilterViewModel());
         }
 
-        //
-        // POST: /Home/Filter
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Filter(FilterViewModel filter)
@@ -62,11 +54,9 @@ namespace Rental.WebUI.Controllers
             if (!ModelState.IsValid) return PartialView("_FilterPartial", filter);
 
             var url = Url.Action("List", "Home", routeValues: filter);
-            return Json(new { success = true, url = url });
+            return Json(new { success = true, url = url, replaceTarget = "#advertReplaceTarget" });
         }
 
-        //
-        // POST: /Home/Reserve
         [HttpPost]
         [Authorize]
         public ActionResult Reserve(long advertId)
@@ -84,12 +74,10 @@ namespace Rental.WebUI.Controllers
                 Warning("You can't reserve your own advert", true);
             }
 
-            var url = Url.Action("Show", "Home");
-            return Json(new {success = true, url = url});
+            var url = Url.Action("List", "Home");
+            return Json(new {success = true, url = url, replaceTarget = "#advertReplaceTarget"});
         }
 
-        //
-        // GET: /Home/Details
         public ActionResult Details(long advertId)
         {
             var advert = _advertService.GetAdvert(advertId);
@@ -98,8 +86,6 @@ namespace Rental.WebUI.Controllers
             return PartialView("_DetailsPartial", model);
         }
 
-        //
-        // GET: /Home/Contact
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";

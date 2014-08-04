@@ -19,7 +19,18 @@
     <div class="panel-heading">
         <strong>Advert list</strong>
     </div>
-    <div id="replaceTarget">
+    <div id="advertReplaceTarget">
         @{ Html.RenderAction("List", "Advert"); }
     </div>
 </div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <strong>Reserved advert list</strong>
+    </div>
+    <div id="reservedAdvertsReplaceTarget">
+        @{ Html.RenderAction("ReservedList", "Advert"); }
+    </div>
+</div>
+
+@Scripts.Render("~/bundles/modalform")

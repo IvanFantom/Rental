@@ -25,9 +25,6 @@ namespace Rental.WebUI
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/bootstrapslider").Include(
-                        "~/Scripts/bootstrap-slider.js"));
-
             bundles.Add(new ScriptBundle("~/bundles/modalform").Include(
                         "~/Scripts/modalform.js"));
 

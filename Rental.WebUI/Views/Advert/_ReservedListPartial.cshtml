@@ -9,22 +9,12 @@
             <th>@Html.DisplayNameFor(x => x.Address.District)</th>
             <th>@Html.DisplayNameFor(x => x.Address.Street)</th>
             <th>@Html.DisplayNameFor(x => x.Type)</th>
-            <th>
-                <a href="@Url.Action("Create", "Advert", routeValues: new { userId = ViewBag.UserId })" class="btn btn-primary pull-right" data-modal="">
-                    <i class="glyphicon glyphicon-plus"></i>
-                </a>
-            </th>
+            <th></th>            
         </tr>
 
         @foreach (var item in Model)
         {
-            var contextualClass = "";
-            if (item.IsReserved)
-            {
-                contextualClass = "warning";
-            }
-            
-            <tr class="@contextualClass">
+            <tr>
                 <td>@item.Header</td>
                 <td>@item.Footage</td>
                 <td>@item.Price</td>
@@ -33,12 +23,10 @@
                 <td>@item.Type</td>
                 <td>
                     <div class="pull-right">
-                        <a href="@Url.Action("Edit", "Advert", routeValues: new { advertId = item.Id })" class="btn btn-default" data-modal="">
-                            <i class="glyphicon glyphicon-pencil"></i>
+                        <a href="@Url.Action("Details", "Advert", routeValues: new { advertId = item.Id })" class="btn btn-default" data-modal="">
+                            <i class="glyphicon glyphicon-th-list"></i>
                         </a>
-                        <a href="@Url.Action("Delete", "Advert", routeValues: new { advertId = item.Id })" class="btn btn-danger" data-modal="">
-                            <i class="glyphicon glyphicon-trash"></i>
-                        </a>
+                        <a href="@Url.Action("Unreserve", "Advert", routeValues: new { advertId = item.Id })" class="btn btn-warning" data-modal="">Unreserve</a>
                     </div>
                 </td>
             </tr>

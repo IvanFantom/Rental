@@ -3,7 +3,7 @@
 
     $.ajaxSetup({ cache: false });
 
-    $('#replaceTarget').on('click', 'a[data-alert]', function (e) {
+    $('#advertReplaceTarget').on('click', 'a[data-alert]', function (e) {
         e.preventDefault();
 
         $.ajax({
@@ -11,13 +11,14 @@
             type: 'POST',
             success: function (result) {
                 if (result.success) {
-                    $('#alertReplaceTarget').load(result.url);
+                    $('#alertReplaceTarget').load('/Home/ShowAlert');
+                    $(result.replaceTarget).load(result.url);
                 }
             }
         });
     });
 
-    $('#replaceTarget').on('click', 'a[data-modal]', function (e) {
+    $('#advertReplaceTarget').on('click', 'a[data-modal]', function (e) {
         $('#advertModalContent').load(this.href, function () {
             $('#advertModal').modal({
                 keyboard: true
@@ -36,13 +37,13 @@
             data: data,
             success: function (result) {
                 if (result.success) {
-                    $('#replaceTarget').load(result.url);   // Load data from the server and place the returned HTML into the matched element
+                    $(result.replaceTarget).load(result.url);   // Load data from the server and place the returned HTML into the matched element
                 }
             }
         });
     });
 
-    $('#replaceTarget').on('click', '.pagination-container a', function (e) {
+    $('#advertReplaceTarget').on('click', '.pagination-container a', function (e) {
         e.preventDefault();
 
         var $form = $('form.form-filter');
@@ -50,7 +51,7 @@
         data['page'] = $(this).val();
 
         if (this.href !== '') {
-            $('#replaceTarget').load(this.href, data);
+            $('#advertReplaceTarget').load(this.href, data);
         }
     });
 });

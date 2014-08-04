@@ -22,39 +22,14 @@ namespace Rental.Services
             _unitOfWork = unitOfWork;
         }
 
-        public IQueryable<AdvertDomainModel> GetAdvertsByUserId(string userId)
+        public bool CanReserve(object advertId, string userId)
         {
-            var user = _unitOfWork.UserManager.FindById(userId);
-            
-            if (user == null)
-            {
-                return null;
-            }
+            var advert = _unitOfWork.GetRepository<Advert>().GetById(advertId);
+            var canReserve = advert.UserId != userId;
 
-            var adverts = user.Adverts
-                .Concat(user.ReservedAdverts)
-                .Select(Mapper.Map<Advert, AdvertDomainModel>)
-                .AsQueryable();
-
-            return adverts;
+            return canReserve;
         }
-
-        public IEnumerable<AdvertDomainModel> GetAdverts(FilterDomainModel filter)
-        {
-            Expression<Func<Advert, bool>> expression = x =>
-                filter.MinPrice <= x.Price && x.Price <= filter.MaxPrice &&
-                filter.MinFootage <= x.Footage && x.Footage <= filter.MaxFootage &&
-                (filter.AdvertType == AdvertTypeDomainModel.None || ((int) x.Type == (int) filter.AdvertType)) &&
-                (string.IsNullOrEmpty(filter.District) || x.Address.District.Contains(filter.District));
-
-            var adverts = _unitOfWork.GetRepository<Advert>()
-                .Filter(expression)
-                .ToList();
-            var proxy = adverts.Select(Mapper.Map<Advert, AdvertDomainModel>);
-
-            return proxy;
-        }
-
+        
         public void CreateAdvert(string userId, AdvertDomainModel model)
         {
             var user = _unitOfWork.UserManager.FindById(userId);
@@ -64,7 +39,13 @@ namespace Rental.Services
             _unitOfWork.GetRepository<Advert>().Create(advert);
             _unitOfWork.Commit();
         }
-
+        
+        public void DeleteAdvert(object advertId)
+        {
+            _unitOfWork.GetRepository<Advert>().Delete(advertId);
+            _unitOfWork.Commit();
+        }
+        
         public AdvertDomainModel GetAdvert(object advertId)
         {
             var advert = _unitOfWork.GetRepository<Advert>().GetById(advertId);
@@ -78,29 +59,54 @@ namespace Rental.Services
 
             return model;
         }
-
-        public void UpdateAdvert(AdvertDomainModel model)
+        
+        public IEnumerable<AdvertDomainModel> GetAdverts(FilterDomainModel filter)
         {
-            var advert = Mapper.Map<AdvertDomainModel, Advert>(model);
-            advert.Address.AdvertId = advert.Id;
-            _unitOfWork.GetRepository<Advert>().Update(advert);
-            _unitOfWork.GetRepository<Address>().Update(advert.Address);
+            Expression<Func<Advert, bool>> expression = x =>
+                !x.IsReserved &&
+                filter.MinPrice <= x.Price && x.Price <= filter.MaxPrice &&
+                filter.MinFootage <= x.Footage && x.Footage <= filter.MaxFootage &&
+                (filter.AdvertType == AdvertTypeDomainModel.None || ((int) x.Type == (int) filter.AdvertType)) &&
+                (string.IsNullOrEmpty(filter.District) || x.Address.District.Contains(filter.District));
 
-            _unitOfWork.Commit();
+            var adverts = _unitOfWork.GetRepository<Advert>()
+                .Filter(expression)
+                .ToList();
+            var proxy = adverts.Select(Mapper.Map<Advert, AdvertDomainModel>);
+
+            return proxy;
+        }
+        
+        public IQueryable<AdvertDomainModel> GetAdvertsByUserId(string userId)
+        {
+            var user = _unitOfWork.UserManager.FindById(userId);
+            
+            if (user == null)
+            {
+                return null;
+            }
+
+            var adverts = user.Adverts
+                .Select(Mapper.Map<Advert, AdvertDomainModel>)
+                .AsQueryable();
+
+            return adverts;
         }
 
-        public void DeleteAdvert(object advertId)
+        public IQueryable<AdvertDomainModel> GetReservedAdvertsByUserId(string userId)
         {
-            _unitOfWork.GetRepository<Advert>().Delete(advertId);
-            _unitOfWork.Commit();
-        }
+            var user = _unitOfWork.UserManager.FindById(userId);
 
-        public bool CanReserve(object advertId, string userId)
-        {
-            var advert = _unitOfWork.GetRepository<Advert>().GetById(advertId);
-            var canReserve = advert.UserId != userId;
+            if (user == null)
+            {
+                return null;
+            }
 
-            return canReserve;
+            var adverts = user.ReservedAdverts
+                .Select(Mapper.Map<Advert, AdvertDomainModel>)
+                .AsQueryable();
+
+            return adverts;
         }
 
         public bool ReserveAdvert(object advertId, string userId)
@@ -114,11 +120,37 @@ namespace Rental.Services
             advert.ReservatorId = userId;
             advert.Reservator = reservator;
             advert.IsReserved = true;
-            _unitOfWork.GetRepository<Advert>().Update(advert);
             
+            _unitOfWork.GetRepository<Advert>().Update(advert);
             _unitOfWork.Commit();
 
             return true;
         }
+        
+        public bool UnreserveAdvert(object advertId)
+        {
+            var advert = _unitOfWork.GetRepository<Advert>().GetById(advertId);
+
+            if (!advert.IsReserved) return false;
+
+            advert.ReservatorId = null;
+            advert.Reservator = null;
+            advert.IsReserved = false;
+            
+            _unitOfWork.GetRepository<Advert>().Update(advert);
+            _unitOfWork.Commit();
+
+            return true;
+        }
+        
+        public void UpdateAdvert(AdvertDomainModel model)
+        {
+            var advert = Mapper.Map<AdvertDomainModel, Advert>(model);
+            advert.Address.AdvertId = advert.Id;
+            _unitOfWork.GetRepository<Advert>().Update(advert);
+            _unitOfWork.GetRepository<Address>().Update(advert.Address);
+
+            _unitOfWork.Commit();
+        }        
     }
 }

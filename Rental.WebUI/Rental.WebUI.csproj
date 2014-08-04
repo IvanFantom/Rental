@@ -251,6 +251,9 @@
     <Content Include="Views\web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_AlertsPartial.cshtml" />
+    <Content Include="Views\Advert\_ReservedListPartial.cshtml" />
+    <Content Include="Views\Advert\_DetailsPartial.cshtml" />
+    <Content Include="Views\Advert\_UnreservePartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

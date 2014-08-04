@@ -6,20 +6,24 @@ namespace Rental.Common
 {
     public interface IAdvertService
     {
-        AdvertDomainModel GetAdvert(object advertId);
-        
-        IQueryable<AdvertDomainModel> GetAdvertsByUserId(string userId);
-
-        IEnumerable<AdvertDomainModel> GetAdverts(FilterDomainModel filter);
+        bool CanReserve(object advertId, string userId);
         
         void CreateAdvert(string userId, AdvertDomainModel model);
         
-        void UpdateAdvert(AdvertDomainModel model);
-        
         void DeleteAdvert(object advertId);
+        
+        AdvertDomainModel GetAdvert(object advertId);
+        
+        IEnumerable<AdvertDomainModel> GetAdverts(FilterDomainModel filter);
+        
+        IQueryable<AdvertDomainModel> GetAdvertsByUserId(string userId);
 
-        bool CanReserve(object advertId, string userId);
+        IQueryable<AdvertDomainModel> GetReservedAdvertsByUserId(string userId);
 
         bool ReserveAdvert(object advertId, string userId);
+        
+        bool UnreserveAdvert(object advertId);
+        
+        void UpdateAdvert(AdvertDomainModel model);
     }
 }

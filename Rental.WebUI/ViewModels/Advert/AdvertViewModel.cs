@@ -21,8 +21,10 @@ namespace Rental.WebUI.ViewModels.Advert
         
         [Required]
         [Range(0, 20000, ErrorMessage = "{0} is out of range")]
-        public int Footage { get; set; }     
-        
+        public int Footage { get; set; }
+
+        public bool IsReserved { get; set; }
+
         [Required]
         [Display(Name = "Type")]
         public AdvertTypeViewModel Type { get; set; }
@@ -31,5 +33,7 @@ namespace Rental.WebUI.ViewModels.Advert
         public AddressViewModel Address { get; set; }
 
         public string UserId { get; set; }
+
+        public string ReservatorId { get; set; }
     }
 }
