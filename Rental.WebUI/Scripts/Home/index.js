@@ -3,6 +3,20 @@
 
     $.ajaxSetup({ cache: false });
 
+    $('#replaceTarget').on('click', 'a[data-alert]', function (e) {
+        e.preventDefault();
+
+        $.ajax({
+            url: this.href,
+            type: 'POST',
+            success: function (result) {
+                if (result.success) {
+                    $('#alertReplaceTarget').load(result.url);
+                }
+            }
+        });
+    });
+
     $('#replaceTarget').on('click', 'a[data-modal]', function (e) {
         $('#advertModalContent').load(this.href, function () {
             $('#advertModal').modal({

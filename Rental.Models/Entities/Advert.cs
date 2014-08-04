@@ -13,6 +13,10 @@ namespace Rental.Models.Entities
         
         public string UserId { get; set; }
         public virtual User User { get; set; }
+        
+        public string ReservatorId { get; set; }
+        public virtual User Reservator { get; set; }
+
         public virtual AdvertType Type { get; set; }
         public virtual Address Address { get; set; }
     }

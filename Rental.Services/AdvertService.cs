@@ -32,6 +32,7 @@ namespace Rental.Services
             }
 
             var adverts = user.Adverts
+                .Concat(user.ReservedAdverts)
                 .Select(Mapper.Map<Advert, AdvertDomainModel>)
                 .AsQueryable();
 
@@ -64,9 +65,9 @@ namespace Rental.Services
             _unitOfWork.Commit();
         }
 
-        public AdvertDomainModel GetAdvert(object userId)
+        public AdvertDomainModel GetAdvert(object advertId)
         {
-            var advert = _unitOfWork.GetRepository<Advert>().GetById(userId);
+            var advert = _unitOfWork.GetRepository<Advert>().GetById(advertId);
 
             if (advert == null)
             {
@@ -92,6 +93,32 @@ namespace Rental.Services
         {
             _unitOfWork.GetRepository<Advert>().Delete(advertId);
             _unitOfWork.Commit();
+        }
+
+        public bool CanReserve(object advertId, string userId)
+        {
+            var advert = _unitOfWork.GetRepository<Advert>().GetById(advertId);
+            var canReserve = advert.UserId != userId;
+
+            return canReserve;
+        }
+
+        public bool ReserveAdvert(object advertId, string userId)
+        {
+            if (!CanReserve(advertId, userId)) return false;
+
+            var advert = _unitOfWork.GetRepository<Advert>().GetById(advertId);
+            var reservator = _unitOfWork.UserManager.FindById(userId);
+
+            reservator.ReservedAdverts.Add(advert);
+            advert.ReservatorId = userId;
+            advert.Reservator = reservator;
+            advert.IsReserved = true;
+            _unitOfWork.GetRepository<Advert>().Update(advert);
+            
+            _unitOfWork.Commit();
+
+            return true;
         }
     }
 }

@@ -66,6 +66,10 @@
     <Compile Include="Migrations\201407312120050_addedFirstNameColumnToUserTable.Designer.cs">
       <DependentUpon>201407312120050_addedFirstNameColumnToUserTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201408040740086_AddAnotherOneToManyRelationshipUserAdvert.cs" />
+    <Compile Include="Migrations\201408040740086_AddAnotherOneToManyRelationshipUserAdvert.Designer.cs">
+      <DependentUpon>201408040740086_AddAnotherOneToManyRelationshipUserAdvert.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RentalDbInitializer.cs" />
@@ -95,6 +99,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201407312120050_addedFirstNameColumnToUserTable.resx">
       <DependentUpon>201407312120050_addedFirstNameColumnToUserTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408040740086_AddAnotherOneToManyRelationshipUserAdvert.resx">
+      <DependentUpon>201408040740086_AddAnotherOneToManyRelationshipUserAdvert.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -26,6 +26,11 @@ namespace Rental.Data.Mappings
             HasRequired(a => a.User)
                 .WithMany(u => u.Adverts)
                 .HasForeignKey(a => a.UserId);
+
+            // User one-to-many Advert
+            HasOptional(a => a.Reservator)
+                .WithMany(r => r.ReservedAdverts)
+                .HasForeignKey(a => a.ReservatorId);
         }
     }
 }

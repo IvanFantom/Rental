@@ -6,7 +6,7 @@ namespace Rental.Common
 {
     public interface IAdvertService
     {
-        AdvertDomainModel GetAdvert(object userId);
+        AdvertDomainModel GetAdvert(object advertId);
         
         IQueryable<AdvertDomainModel> GetAdvertsByUserId(string userId);
 
@@ -17,5 +17,9 @@ namespace Rental.Common
         void UpdateAdvert(AdvertDomainModel model);
         
         void DeleteAdvert(object advertId);
+
+        bool CanReserve(object advertId, string userId);
+
+        bool ReserveAdvert(object advertId, string userId);
     }
 }

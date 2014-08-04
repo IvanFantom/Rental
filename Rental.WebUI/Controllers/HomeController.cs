@@ -1,6 +1,9 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
+using System.Web.Routing;
 using AutoMapper;
+using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security.Provider;
 using PagedList;
 using Rental.Common;
 using Rental.Domain.Models;
@@ -9,7 +12,7 @@ using Rental.WebUI.ViewModels.Home;
 
 namespace Rental.WebUI.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly IAdvertService _advertService;
 
@@ -60,6 +63,29 @@ namespace Rental.WebUI.Controllers
 
             var url = Url.Action("List", "Home", routeValues: filter);
             return Json(new { success = true, url = url });
+        }
+
+        //
+        // POST: /Home/Reserve
+        [HttpPost]
+        [Authorize]
+        public ActionResult Reserve(long advertId)
+        {
+            var userId = User.Identity.GetUserId();
+            var canReserve = _advertService.CanReserve(advertId, userId);
+
+            if (canReserve)
+            {
+                _advertService.ReserveAdvert(advertId, userId);
+                Success("Advert was successfully reserved", true);
+            }
+            else
+            {
+                Warning("You can't reserve your own advert", true);
+            }
+
+            var url = Url.Action("Show", "Home");
+            return Json(new {success = true, url = url});
         }
 
         //

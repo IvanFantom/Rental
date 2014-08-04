@@ -21,6 +21,10 @@ namespace Rental.Domain.Models
 
         public string UserId { get; set; }
         public UserDomainModel User { get; set; }
+
+        public string ReservatorId { get; set; }
+        public UserDomainModel Reservator { get; set; }
+
         public AdvertTypeDomainModel Type { get; set; }
         public AddressDomainModel Address { get; set; }
     }

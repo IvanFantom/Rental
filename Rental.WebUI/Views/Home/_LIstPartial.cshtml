@@ -23,6 +23,10 @@
                 <td>@item.Type</td>
                 <td>
                     <div class="pull-right">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <a href="@Url.Action("Reserve", "Home", routeValues: new { advertId = item.Id })" class="btn btn-default" data-alert="">Reserve</a>
+                        }
                         <a href="@Url.Action("Details", "Home", routeValues: new { advertId = item.Id })" class="btn btn-default" data-modal="">
                             <i class="glyphicon glyphicon-th-list"></i>
                         </a>
